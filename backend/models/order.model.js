@@ -2,13 +2,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const orderSchema = new Schema({
     order_status: {
-        type: String
+        type: String,
+        default: "pending"
     },
-    created_at: {
-        type: String
+    order_date: {
+        type: Date,
+        default: Date.now
     },
-    cart_id: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Cart'
+    // shipping_address
+    //payment_info
+    order_items: [{
+        prodId: { type: Schema.Types.ObjectId, ref: 'Product' },
+        quantity: Number
+    }],
+    order_quantity: {
+        type: Number,
+        default: 0
+    },
+    order_total: {
+        type: Number,
+        default: 0
     }
 
 

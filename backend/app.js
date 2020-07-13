@@ -6,10 +6,10 @@ const bodyParser = require('body-parser');
 app.use(cors());
 app.use(bodyParser.json());
 
-const customerRouter = require('./routes/customer.routes');
-const farmerRouter = require('./routes/farmer.routes');
+// const customerRouter = require('./routes/customer.routes');
+const userRouter = require('./routes/user.routes');
 
 
-app.use('/api/v1', customerRouter);
-app.use('/api/v1/farmers', farmerRouter);
+// app.use('/api/v1', customerRouter);
+app.use('/api/v1/users', userRouter);
 module.exports = app;

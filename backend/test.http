@@ -1,0 +1,47 @@
+
+POST http://localhost:3000/api/v1/users/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "farmer_id":"5f0b90022964d7fae42917e0",
+    "productName": "carrots",
+    "productPrice":10 ,
+    "productDescription": "excellent product",
+    "productImage": ""
+}
+
+########
+POST http://localhost:3000/api/v1/users/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstname":"leul",
+    "lastname":"necha",
+    "email":"leul@mum.edu",
+     "password":"1234",
+     "role":"customer",
+     "phone_number": "7204515972"
+}
+
+###
+POST http://localhost:3000/api/v1/users/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"leul@mum.edu",
+    "password":"1234"
+  
+}
+
+########
+
+PATCH  http://localhost:3000/api/v1/users/5f0ba78c6fdf701395d5ad55 HTTP/1.1
+Content-Type: application/json
+
+{
+    "prodId":"5f0ba9ad6fdf701395d5ad5a",
+    "quantity": 10
+}
+###
+
+PATCH  http://localhost:3000/api/v1/users/5f0ba78c6fdf701395d5ad55/orders HTTP/1.1
