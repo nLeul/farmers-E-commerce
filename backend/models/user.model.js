@@ -22,7 +22,7 @@ const userSchema = new Schema({
     reputation: {
         type: String
     },
-    products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+    products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product'}],
     orders: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Order'
     }],

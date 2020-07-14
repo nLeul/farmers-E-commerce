@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const productSchema = new Schema({
-    farmer_id:{type: mongoose.Schema.Types.ObjectId, ref: 'User'} ,
+    farmer_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     productName: {
         type: String
+    },
+    quantity: {
+        type: Number
     },
     productPrice: {
         type: Number

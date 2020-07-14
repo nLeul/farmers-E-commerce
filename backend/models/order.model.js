@@ -9,6 +9,9 @@ const orderSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    pickup_date: {
+        type: String,
+    },
     // shipping_address
     //payment_info
     order_items: [{

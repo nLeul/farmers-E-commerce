@@ -6,10 +6,28 @@ const Order = require('../models/order.model');
 
 
 exports.addProduct = async (req, res, next) => {
-
+    const { farmer_id, productName, quantity, productPrice, productDescription, productImage } = req.body
     try {
-        const product = await Product.create(req.body);
-        return res.status(201).json({ status: true, data: product });
+        const foundProduct = await Product.findOne({ productName: req.body.productName });
+        if (foundProduct) {
+            const quantity1 = foundProduct.quantity + quantity;
+            const product = await Product.findOneAndUpdate({ productName: req.body.productName }, {
+                productName: productName,
+                quantity: quantity1,
+                productPrice: productPrice,
+                productDescription: productDescription,
+                productImage: productImage,
+            }, { new: true });
+            return res.status(201).json({ status: true, data: product });
+        }
+        else {
+            const product = await Product.create(req.body);
+            const farmer = await User.findById({ _id: farmer_id });
+            farmer.products.push(product._id)
+            farmer.save();
+            return res.status(201).json({ status: true, data: product });
+        }
+
     }
     catch (err) {
         return res.status(400).json({ status: false, err });
@@ -72,7 +90,6 @@ exports.addToCart = async (req, res, next) => {
     const custId = req.params.custId
     const { prodId, quantity } = req.body;
     const product = await Product.findById(prodId);
-    console.log(prodId);
     const foundUser = await User.findById(custId);
 
     if (foundUser) {
@@ -103,12 +120,27 @@ exports.addToOrder = async (req, res, next) => {
             order_quantity: foundUser.cart.totalQuantity,
             order_total: foundUser.cart.totalPrice
         });
-        // console.log(order)
         foundUser.cart.cart_items = [];
         foundUser.cart.totalQuantity = 0;
         foundUser.cart.totalPrice = 0;
 
         foundUser.orders.push(order);
+        for (let i = 0; i < order.order_items.length; i++) {
+            const product = await Product.find({ _id: order.order_items[i].prodId });
+            console.log("product", product)
+            product.filter((eachProduct, i) => {
+                console.log("eachProduct.quantity", eachProduct.quantity);
+                console.log("order.order_items.quantity", order.order_items[i].quantity);
+                console.log(eachProduct._id, order.order_items[i].prodId);
+                if (eachProduct._id === order.order_items[i].prodId) {
+                    eachProduct.quantity -= order.order_items[i].quantity;
+
+                }
+                eachProduct.save();
+            });
+        }
+
+
         const result = await User.findByIdAndUpdate(custId, foundUser, { new: true })
         return res.status(200).json({ succes: true, data: result });
     }
@@ -117,3 +149,85 @@ exports.addToOrder = async (req, res, next) => {
     }
 
 };
+
+exports.getInventory = async (req, res, next) => {
+    console.log("inside getInventory");
+    const { farmerId } = req.query;
+    try {
+        const products = await Product.find({ farmer_id: farmerId });
+        return res.status(200).json({ succes: true, data: products });
+    }
+    catch (err) {
+        return res.status(400).json({ status: false, err: "Error Occured" });
+    }
+}
+
+exports.deleteProduct = async (req, res, next) => {
+    const { prodId } = req.query;
+    const product = await Product.findByIdAndDelete({ _id: prodId }, { new: true });
+    return res.status(200).json({ succes: true, data: product });
+};
+
+exports.deleteAllProduct = async (req, res, next) => {
+    const { farmerId } = req.params;
+    const product = await Product.deleteMany({ farmer_id: farmerId });
+    return res.status(200).json({ succes: true, data: "All products Succesfully deleted" });
+};
+
+exports.updateProduct = async (req, res, next) => {
+    const { prodId } = req.query;
+    const { farmer_id, productName, productPrice, productDescription, productImage } = req.body;
+    const foundProduct = await Product.findById({ _id: prodId });
+    if (foundProduct) {
+        const product = await Product.findByIdAndUpdate({ _id: prodId }, {
+            farmer_id: farmer_id,
+            productName: productName,
+            productPrice: productPrice,
+            productDescription: productDescription,
+            productImage: productImage
+        }, { new: true })
+        return res.status(200).json({ succes: true, data: product });
+    }
+    return res.status(404).json({ success: false, err: "product not found" });
+
+};
+
+exports.getAllFarmers = async (req, res, next) => {
+    console.log("inside get all farmers");
+    try {
+        const farmer = await User.find({ role: "farmer" });
+        if (farmer) {
+            return res.status(200).json({ succes: true, data: farmer });
+        }
+        else {
+            return res.status(200).json({ succes: true, err: "farmer not found" });
+        }
+
+    }
+    catch (err) {
+        return res.status(400).json({ status: false, err: "Error Occured" });
+    }
+}
+exports.filterOrders = async (req, res, next) => {
+    console.log("inside filter");
+    const { pending, ready, complete } = req.query;
+    try {
+        // const order = await Order.find();
+        const pending_order = await Order.find({ order_status: pending });
+        const ready_order = await Order.find({ order_status: ready });
+        const complete_order = await Order.find({ order_status: complete });
+
+        return res.status(200).json({
+            succes: true, data: {
+                pending: pending_order,
+                ready: ready_order,
+                complete: complete_order
+            }
+
+        });
+
+    }
+    catch (err) {
+        return res.status(400).json({ status: false, err: "Error Occured" });
+    }
+}
