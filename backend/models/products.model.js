@@ -23,4 +23,11 @@ const productSchema = new Schema({
     }
 });
 
+
+productSchema.statics.updateInventory = async (id, quantity) => {
+    let prod = await this.findById(id);
+    prod.quantity -= quantity;
+    return await this.findByIdAndUpdate(id, prod, {new: true});
+}
+
 module.exports = mongoose.model('Product', productSchema);

@@ -116,6 +116,7 @@ exports.addToOrder = async (req, res, next) => {
 
     if (foundUser) {
         const order = await Order.create({
+            customer_id: custId,
             order_items: foundUser.cart.cart_items,
             order_quantity: foundUser.cart.totalQuantity,
             order_total: foundUser.cart.totalPrice
@@ -125,22 +126,25 @@ exports.addToOrder = async (req, res, next) => {
         foundUser.cart.totalPrice = 0;
 
         foundUser.orders.push(order);
+
+
+        //Promise.all([promise1, promise2]).then();
+
+        // add payment method
+        // add shipping addresss
+
         for (let i = 0; i < order.order_items.length; i++) {
-            const product = await Product.find({ _id: order.order_items[i].prodId });
-            console.log("product", product)
-            product.filter((eachProduct, i) => {
-                console.log("eachProduct.quantity", eachProduct.quantity);
-                console.log("order.order_items.quantity", order.order_items[i].quantity);
-                console.log(eachProduct._id, order.order_items[i].prodId);
-                if (eachProduct._id === order.order_items[i].prodId) {
-                    eachProduct.quantity -= order.order_items[i].quantity;
-
-                }
-                eachProduct.save();
-            });
+            let orderItem = order.order_items[i];
+            let { prodId, quantity } = orderItem;
+            let foundProduct = await Product.findById(prodId);
+            foundProduct.quantity -= quantity;
+            let updateProduct = await Product.findByIdAndUpdate(prodId, foundProduct, { new: true });
         }
-
-
+        /* 
+        * 
+        * axios.patch('/product/inventory/update, {: 'dkdfkdjfdjfdf', quantity: 3})
+        * 
+          *  */
         const result = await User.findByIdAndUpdate(custId, foundUser, { new: true })
         return res.status(200).json({ succes: true, data: result });
     }
@@ -151,7 +155,6 @@ exports.addToOrder = async (req, res, next) => {
 };
 
 exports.getInventory = async (req, res, next) => {
-    console.log("inside getInventory");
     const { farmerId } = req.query;
     try {
         const products = await Product.find({ farmer_id: farmerId });
@@ -193,7 +196,6 @@ exports.updateProduct = async (req, res, next) => {
 };
 
 exports.getAllFarmers = async (req, res, next) => {
-    console.log("inside get all farmers");
     try {
         const farmer = await User.find({ role: "farmer" });
         if (farmer) {
@@ -209,7 +211,6 @@ exports.getAllFarmers = async (req, res, next) => {
     }
 }
 exports.filterOrders = async (req, res, next) => {
-    console.log("inside filter");
     const { pending, ready, complete } = req.query;
     try {
         // const order = await Order.find();
@@ -223,11 +224,56 @@ exports.filterOrders = async (req, res, next) => {
                 ready: ready_order,
                 complete: complete_order
             }
-
         });
+    }
+    catch (err) {
+        return res.status(400).json({ status: false, err: "Error Occured" });
+    }
+}
+exports.getOrderHistory = async (req, res, next) => {
+    try {
+        let { customerId } = req.params;
+        const customerOrders = await Order.find({ customer_id: customerId });
+        return res.status(201).json({ status: true, data: customerOrders });
+    }
+    catch (err) {
+        return res.status(400).json({ status: false, err: "Error Occured" });
+    }
+
+}
+exports.updateStatusToComplete = async (req, res, next) => {
+    try {
+        const { orderId } = req.params;
+        const { order_status } = req.body;
+        console.log(orderId);
+        console.log(order_status);
+        const completedOrders = await Order.findByIdAndUpdate({ _id: orderId }, { order_status: order_status }, { new: true });
+        return res.status(201).json({ status: true, data: completedOrders });
 
     }
     catch (err) {
         return res.status(400).json({ status: false, err: "Error Occured" });
     }
+
+}
+exports.updateStatusToReadyandSendEmail = async (req, res, next) => {
+    try {
+        const { orderId } = req.params;
+        const { order_status, firstname, lastname, email } = req.body;
+        const { pickup_date } = req.body;
+        const date = new Date(pickup_date);
+
+        let d = date.getDate();
+        let m = date.getMonth() + 1;
+        let y= date.getYear() + 1920;
+        console.log(convertedDate);
+        const convertedDate = y-m-d;
+        const completedOrders = await Order.findByIdAndUpdate({ _id: orderId }, { order_status: order_status, pickup_date: convertedDate }, { new: true });
+        return res.status(201).json({ status: true, data: completedOrders });
+
+    }
+    catch (err) {
+        return res.status(400).json({ status: false, err: "Error Occured" });
+    }
+
 }

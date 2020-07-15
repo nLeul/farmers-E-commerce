@@ -11,7 +11,7 @@ userRouter.get('/products', userController.getInventory);//Retrieve products -->
 userRouter.delete('/products', userController.deleteProduct);//Delete
 userRouter.delete('/products/:farmerId', userController.deleteAllProduct);//Delete all
 userRouter.patch('/products', userController.updateProduct);//Update
- 
+
 
 
 //customer
@@ -22,5 +22,8 @@ userRouter.patch('/:custId/orders', userController.addToOrder);//add to order an
 
 //order
 userRouter.get('/orders', userController.filterOrders);//Farmers  see all orders and filter them by status.
+userRouter.get('/:customerId/orders', userController.getOrderHistory);//Customers can see their orders history and filter by date and status.
+userRouter.patch('/farmers/:orderId', userController.updateStatusToComplete);//order is picked up, farmers updates order status to ‘complete’.
+userRouter.patch('/farmers/:orderId', userController.updateStatusToReadyandSendEmail);//farmer set order ready and pick up time and send email
 
 module.exports = userRouter;

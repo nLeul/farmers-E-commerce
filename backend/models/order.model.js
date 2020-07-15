@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const orderSchema = new Schema({
+    customer_id:{ type: Schema.Types.ObjectId, ref: 'User' },//added later
     order_status: {
         type: String,
         default: "pending"
@@ -10,7 +11,8 @@ const orderSchema = new Schema({
         default: Date.now
     },
     pickup_date: {
-        type: String,
+        type: Date,
+        default:Date.now
     },
     // shipping_address
     //payment_info
