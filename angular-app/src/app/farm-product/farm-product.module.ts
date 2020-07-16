@@ -13,6 +13,7 @@ import { UpdateProductComponent } from './update-product/update-product.componen
     CommonModule,
     RouterModule.forChild([
       { path: "farms", component: FarmProductsComponent },
+      { path: "addProduct", component: FarmProductsComponent },
     ])
   ]
 })
