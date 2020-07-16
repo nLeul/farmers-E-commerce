@@ -1,0 +1,1 @@
+// exports.authorizeFarmer=(req,res)
