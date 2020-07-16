@@ -1,0 +1,136 @@
+#add product
+POST http://localhost:3000/api/v1/users/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "farmer_id":"5f0de3afc610ee2328341e0d",
+    "productName": "milk",
+    "quantity":10,
+    "productPrice":2 ,
+    "productDescription": "excellent product",
+    "productImage": ""
+}
+
+########signup
+POST http://localhost:3000/api/v1/users/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstname":"abel",
+    "lastname":"tesfaye",
+    "email":"atesfaye@mum.edu",
+     "password":"1234",
+     "role":"farmer",
+     "phone_number": "7204515972"
+}
+
+###sign in
+POST http://localhost:3000/api/v1/users/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"lnecha@mum.edu",
+    "password":"1234"
+  
+}
+
+########
+#add to cart
+PATCH  http://localhost:3000/api/v1/users/5f0de392c610ee2328341e0c HTTP/1.1
+Content-Type: application/json
+
+{
+    "prodId":"5f0e3ec68e0ff65a6bc49b29",
+    "quantity": 2
+}
+###
+
+
+#add to order and clear cart
+PATCH  http://localhost:3000/api/v1/users/5f0de392c610ee2328341e0c/orders HTTP/1.1
+
+
+###
+#get all products by farmer id (Retrieve products)
+
+GET   http://localhost:3000/api/v1/users/products?farmerId=5f0de3afc610ee2328341e0d HTTP/1.1 
+
+###
+
+#delete product
+DELETE    http://localhost:3000/api/v1/users/products/?prodId=5f0ba9376fdf701395d5ad56 HTTP/1.1 
+
+
+###
+
+###
+
+#delete all products
+DELETE    http://localhost:3000/api/v1/users/products/5f0de3afc610ee2328341e0d HTTP/1.1 
+
+
+###
+###
+
+#update a product
+PATCH     http://localhost:3000/api/v1/users/products/?prodId=5f0ccaf1220ce75afe63b151 HTTP/1.1 
+Content-Type: application/json
+
+{
+    "farmer_id":"5f0de3afc610ee2328341e0d",
+    "productName": "potato",
+    "productPrice":2 ,
+    "productDescription": "Best egg ever",
+    "productImage": ""
+}
+###
+#customer get all farmers
+GET     http://localhost:3000/api/v1/users/farmers HTTP/1.1 
+
+###
+
+
+#filter orders by status 
+GET      http://localhost:3000/api/v1/users/orders/?pending=pending&ready=ready&complete=complete HTTP/1.1 
+
+
+###
+###
+
+
+#customer order history
+GET      http://localhost:3000/api/v1/users/5f0de392c610ee2328341e0c/orders HTTP/1.1 
+
+
+###
+
+###
+
+
+#farmer set order complete 
+PATCH       http://localhost:3000/api/v1/users/farmers/5f0e3dc68e0ff65a6bc49b24  HTTP/1.1 
+Content-Type: application/json
+
+{
+    "order_status":"complete"
+}
+
+
+###
+
+#farmer set order ready and pick up time and send email
+PATCH       http://localhost:3000/api/v1/users/farmers/5f0e6b8c5f5996702c728a89  HTTP/1.1 
+Content-Type: application/json
+
+{
+    "order_status":"ready",
+    "firstname":"leul",
+    "lastname":"necha",
+    "email":"lnecha@mum.edu",
+    "pickup_date":"2019-07-15T02:35:56.446Z"
+
+
+}
+
+
+###
