@@ -8,6 +8,12 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { RouterModule } from '@angular/router';
 
 
+import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+
+
 
 @NgModule({
   declarations: [ProductsComponent, AddProductsComponent, DeleteProductsComponent, UpdateProductsComponent, ProductDetailsComponent],
@@ -18,7 +24,9 @@ import { RouterModule } from '@angular/router';
       { path: 'farmers/details', component: ProductDetailsComponent },
       { path: 'farmers/delete', component: DeleteProductsComponent },
       { path: 'farmers/update', component: UpdateProductsComponent }
-    ])
+    ]),
+
+    MatTableModule,MatFormFieldModule,MatInputModule,MatButtonModule
   ]
 })
 export class FarmproductsModule { }

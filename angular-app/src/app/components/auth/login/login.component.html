@@ -1,3 +1,16 @@
-<p>login form!</p>
-<a [routerLink]='["farmers"]'>login</a>
-<!-- <button [routerLink]='["farmers"]'>Log In </button> -->
+
+        <mat-card>
+          <h3>Login</h3>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <mat-form-field >
+              <input type="text" matInput placeholder="Username" formControlName="username">
+              <mat-error *ngIf="data.username.errors?.required">Username is required</mat-error>
+            </mat-form-field>
+            <mat-form-field >
+              <input type="password" matInput placeholder="Password" formControlName="password">
+              <mat-error *ngIf="data.password.errors?.required">Password is required</mat-error>
+            </mat-form-field>
+              <button [routerLink]="['farmers']" mat-raised-button color="primary">Login</button>   
+          </form>
+        </mat-card>
+  

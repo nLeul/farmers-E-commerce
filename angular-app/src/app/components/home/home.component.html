@@ -1,5 +1,14 @@
-<a [routerLink]="['signin']">Sign In </a>
-<a [routerLink]="['signup']">Sign Up </a>
-<!-- <a [routerLink]="['farmers']"> Product </a> -->
-<a [routerLink]="['logout']"> Log out </a>
-<p>home works!</p>
+<mat-toolbar color="primary" class="navbar">
+    <div> <a mat-button [routerLink]="['']"> Home</a> </div>
+    <span style="flex:1 1 auto;"></span>
+    <div>
+    <a [routerLink]="['signin']" mat-button>Sign In </a>
+    <a [routerLink]="['signup']" mat-button>Sign Up </a>
+    <!-- <a [routerLink]="['farmers']"> Product </a> -->
+    <a [routerLink]="['logout']" mat-button> Log out </a>
+  
+
+</div>
+
+</mat-toolbar>
+<router-outlet></router-outlet>
