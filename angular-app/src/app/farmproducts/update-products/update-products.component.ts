@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FarmerApiService } from 'src/app/services/farmer-api.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-update-products',
@@ -6,10 +10,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update-products.component.css']
 })
 export class UpdateProductsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  productList: [];
+  editForm: FormGroup;
+  prodName: string;
+  subscription$: Subscription;
+  constructor(private router: Router, private routes: ActivatedRoute, private fb: FormBuilder, private farmService: FarmerApiService) {
+    this.editForm = fb.group({
+      'name': ['', Validators.required],
+      'code': ['', Validators.required],
+    })
   }
 
+  ngOnInit(): void {
+    this.routes.queryParams.subscribe((param: any) => this.prodName = param['productName']);
+    console.log(this.prodName);
+    this.farmService.getProductByName(this.prodName).subscribe(res => {
+      this.editForm.patchValue(res.data);
+    })
+  }
+
+  onSubmit() {
+    this.subscription$ = this.farmService.getProductByName(this.editForm.value).subscribe(res => {
+      console.log("posted succesfully")
+    })
+
+  }
 }

@@ -1,1 +1,19 @@
-<p>update-products works!</p>
+<h1 style="margin: 50px; margin-left:380px; color: purple;"> Edit Product </h1>
+
+
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()"
+    style="min-width: 150px; max-width: 500px; width: 100%; text-align: center; margin-left:300px;">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Course Name" name="name" formControlName='name'>
+    </mat-form-field>
+    <br> <br>
+    <mat-form-field appearance="fill">
+        <mat-label>Code</mat-label>
+        <input matInput placeholder="Course Code" name="code" formControlName='code'>
+    </mat-form-field>
+    <br> <br>
+    <br> <br>
+    <button type="submit" mat-raised-button color="primary"> update product</button>
+
+</form>

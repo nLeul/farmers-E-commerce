@@ -12,6 +12,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,6 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
   declarations: [ProductsComponent, AddProductsComponent, DeleteProductsComponent, UpdateProductsComponent, ProductDetailsComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'farmers', component: ProductsComponent },
       { path: 'farmers/details', component: ProductDetailsComponent },

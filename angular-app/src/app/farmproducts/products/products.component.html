@@ -4,31 +4,46 @@
 <a [routerLink]='["update"]'>update</a>
 
 <div class="animated fadeIn">
-    <mat-table #table [dataSource]="dataSource" class="mat-elevation-z20">
+    <mat-table #table [dataSource]="productList" class="mat-elevation-z20">
 
         <!-- Position Column -->
-        <ng-container matColumnDef="position">
+        <ng-container matColumnDef="No">
             <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        <ng-container matColumnDef="productName">
+            <mat-header-cell *matHeaderCellDef> Product Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.productName}} </mat-cell>
         </ng-container>
 
         <!-- Weight Column -->
-        <ng-container matColumnDef="weight">
-            <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+        <ng-container matColumnDef="quantity">
+            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.productPrice}} </mat-cell>
         </ng-container>
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="symbol">
-            <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+        <ng-container matColumnDef="productPrice">
+            <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="productImage">
+            <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
         </ng-container>
+        <ng-container matColumnDef="Action">
+            <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button  type="button"(click)="updateProduct(element.productName)"  mat-stroked-button color="primary"> Edit </button>
+                <!-- <a [routerLink]="[element._id]" [state]="{body:element}" mat-stroked-button color="primary"> Details </a> -->
+                <button type="button" (click)="deleteProduct(element._id)" mat-stroked-button
+                    color="warn">Delete</button>
+            </mat-cell>
+        </ng-container>
+
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
