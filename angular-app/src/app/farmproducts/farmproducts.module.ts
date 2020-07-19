@@ -22,10 +22,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild([
-      { path: 'farmers', component: ProductsComponent },
-      { path: 'farmers/details', component: ProductDetailsComponent },
-      { path: 'farmers/delete', component: DeleteProductsComponent },
-      { path: 'farmers/update', component: UpdateProductsComponent }
+      { path: '', component: ProductsComponent },
+      { path: 'details', component: ProductDetailsComponent },
+      { path: 'delete', component: DeleteProductsComponent },
+      { path: 'newproduct', component: AddProductsComponent },
+      { path: ':productName', component: UpdateProductsComponent },
+     
     ]),
 
     MatTableModule,MatFormFieldModule,MatInputModule,MatButtonModule

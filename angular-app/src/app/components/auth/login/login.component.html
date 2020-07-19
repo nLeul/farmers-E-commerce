@@ -1,16 +1,13 @@
-
-        <mat-card>
-          <h3>Login</h3>
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <mat-form-field >
-              <input type="text" matInput placeholder="Username" formControlName="username">
-              <mat-error *ngIf="data.username.errors?.required">Username is required</mat-error>
-            </mat-form-field>
-            <mat-form-field >
-              <input type="password" matInput placeholder="Password" formControlName="password">
-              <mat-error *ngIf="data.password.errors?.required">Password is required</mat-error>
-            </mat-form-field>
-              <button [routerLink]="['farmers']" mat-raised-button color="primary">Login</button>   
-          </form>
-        </mat-card>
-  
+<div class="login">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field class="full-width">
+      <mat-label>Email</mat-label>
+      <input type="text" matInput placeholder="Email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field class="full-width" >
+      <mat-label>Password</mat-label>
+      <input type="password" matInput placeholder="Password" formControlName="password">
+    </mat-form-field>
+    <button mat-raised-button color="primary">Login</button>
+  </form>
+</div>

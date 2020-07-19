@@ -31,11 +31,13 @@ export class ProductsComponent implements OnInit {
     
   }
 
+  
+
   deleteProduct(prodId: number) {
     console.log(prodId);
     // this.farmService.deleteProduct(prodId).subscribe(res => this.router.navigate(['delete']));
-    this.router.navigate(['signin','farmers','delete'])
-    
+    this.router.navigate(['farmers','delete'])
+   
   }
 
   ngOnDestroy() {

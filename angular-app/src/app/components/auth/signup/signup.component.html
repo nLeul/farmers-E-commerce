@@ -1,1 +1,33 @@
-<p>signup works!</p>
+<div class="signup">
+    <form [formGroup]="signUpForm" class="form">
+        <mat-form-field class="full-width">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput formControlName="firstname" placeholder="leul">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput formControlName="lastname" placeholder="necha">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email" placeholder="Ex. lnecha@mum.com">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input type="text" matInput formControlName="password" placeholder="******">
+        </mat-form-field>
+        <mat-form-field class=" full-width">
+            <mat-label>Re-enter Password</mat-label>
+            <input type="text" matInput formControlName="password" placeholder="******">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Role</mat-label>
+            <input type="text" matInput formControlName="role" placeholder="farmer">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input type="number" matInput formControlName="phone_number" placeholder="farmer">
+        </mat-form-field>
+        <button mat-raised-button color="primary">Register</button>
+    </form>
+</div>

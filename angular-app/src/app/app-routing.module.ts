@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'signin', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'signin', loadChildren: () => import('./farmproducts/farmproducts.module').then(m => m.FarmproductsModule) }
+  { path: 'farmers', loadChildren: () => import('./farmproducts/farmproducts.module').then(m => m.FarmproductsModule) }
 
 ];
 

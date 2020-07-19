@@ -1,1 +1,27 @@
-<p>add-products works!</p>
+
+
+<div class="addform">
+    <form [formGroup]="addFormData" class="form">
+      <mat-form-field class="full-width">
+        <mat-label>Product Name</mat-label>
+        <input type="text" matInput placeholder="Apple" formControlName="productName">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Quantity</mat-label>
+        <input type="number" matInput placeholder="5" formControlName="quantity">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Product price</mat-label>
+        <input type="number" matInput placeholder="5$" formControlName="productPrice">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Product Description</mat-label>
+        <textarea matInput formControlName="productDescription" placeholder="Ex. Ecxcellent product"></textarea>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Product Image</mat-label>
+        <input type="text"  formControlName="productImage" matInput placeholder="Ex https://www.google.com/url">
+      </mat-form-field>
+      <button mat-raised-button color="primary">Add Product</button>
+    </form>
+  </div>

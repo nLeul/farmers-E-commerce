@@ -2,13 +2,12 @@
     <div> <a mat-button [routerLink]="['']"> Home</a> </div>
     <span style="flex:1 1 auto;"></span>
     <div>
-    <a [routerLink]="['signin']" mat-button>Sign In </a>
-    <a [routerLink]="['signup']" mat-button>Sign Up </a>
-    <!-- <a [routerLink]="['farmers']"> Product </a> -->
-    <a [routerLink]="['logout']" mat-button> Log out </a>
-  
+        <a *ngIf="!user" [routerLink]="['signin']" mat-button>Sign In </a>
+        <a *ngIf="!user" [routerLink]="['signup']" mat-button>Sign Up </a>
+        <a *ngIf="!user" [routerLink]="['logout']" mat-button> Log out </a>
 
-</div>
+
+    </div>
 
 </mat-toolbar>
 <router-outlet></router-outlet>
