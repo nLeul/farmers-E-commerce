@@ -15,10 +15,13 @@ export class UpdateProductsComponent implements OnInit {
   prodName: string;
   subscription$: Subscription;
   constructor(private router: Router, private routes: ActivatedRoute, private fb: FormBuilder, private farmService: FarmerApiService) {
-    this.editForm = fb.group({
-      'name': ['', Validators.required],
-      'code': ['', Validators.required],
-    })
+    this.editForm = this.fb.group({
+      productName: ['', Validators.required],
+      quantity: ['', Validators.required],
+      productPrice: ['', Validators.required],
+       productDescription: ['', Validators.required],
+       productImage: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 
 
 <div class="addform">
-    <form [formGroup]="addFormData" class="form">
+    <form [formGroup]="addFormData" (ngSubmit)="onSubmit()" class="form">
       <mat-form-field class="full-width">
         <mat-label>Product Name</mat-label>
         <input type="text" matInput placeholder="Apple" formControlName="productName">

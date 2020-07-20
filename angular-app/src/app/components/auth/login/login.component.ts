@@ -12,23 +12,30 @@ export class LoginComponent implements OnInit {
   token: string;
   loginForm: FormGroup;
   submitted = false;
-  user=null;
-  constructor(private formBuilder: FormBuilder, private router: Router, private farmServ: FarmerApiService) { }
+  user = null;
+  constructor(private formBuilder: FormBuilder, private router: Router, private farmServ: FarmerApiService) {
+
+    console.log("constructor")
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+
   }
   get data() { return this.loginForm.controls; }
 
 
   onSubmit() {
-    this.farmServ.login(this.loginForm.value).subscribe((res: any) => {
-      localStorage.setItem("token", res.token); 
-      this.router.navigate(["farmers"]);
+       this.farmServ.login(this.loginForm.value).subscribe((res: any) => {
+      //localStorage.setItem("token", res.token);
+      this.router.navigate(["products"]);
     });
+    //this.user = this.farmServ.getLoggedInUser();
+    //console.log(this.user);
+
   }
 
 

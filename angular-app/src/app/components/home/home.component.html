@@ -2,9 +2,10 @@
     <div> <a mat-button [routerLink]="['']"> Home</a> </div>
     <span style="flex:1 1 auto;"></span>
     <div>
-        <a *ngIf="!user" [routerLink]="['signin']" mat-button>Sign In </a>
-        <a *ngIf="!user" [routerLink]="['signup']" mat-button>Sign Up </a>
-        <a *ngIf="!user" [routerLink]="['logout']" mat-button> Log out </a>
+        <a *ngIf="!(getLoggedInUser() | async)" [routerLink]="['signin']" mat-button>Sign In </a>
+        <a *ngIf="!(getLoggedInUser() | async)" [routerLink]="['signup']" mat-button>Sign Up </a>
+        <a *ngIf="!(getLoggedInUser() | async)" [routerLink]="['products']" mat-button>Products</a>
+        <a *ngIf="(getLoggedInUser() | async)" (click)="logout()" mat-button> Log out </a>
 
 
     </div>

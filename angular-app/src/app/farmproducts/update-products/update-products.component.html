@@ -1,19 +1,28 @@
 <h1 style="margin: 50px; margin-left:380px; color: purple;"> Edit Product </h1>
 
 
-<form [formGroup]="editForm" (ngSubmit)="onSubmit()"
-    style="min-width: 150px; max-width: 500px; width: 100%; text-align: center; margin-left:300px;">
-    <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Course Name" name="name" formControlName='name'>
-    </mat-form-field>
-    <br> <br>
-    <mat-form-field appearance="fill">
-        <mat-label>Code</mat-label>
-        <input matInput placeholder="Course Code" name="code" formControlName='code'>
-    </mat-form-field>
-    <br> <br>
-    <br> <br>
-    <button type="submit" mat-raised-button color="primary"> update product</button>
-
-</form>
+<div class="addform">
+    <form [formGroup]="editForm" class="form" (ngSubmit)="onSubmit()" >
+      <mat-form-field class="full-width">
+        <mat-label>Product Name</mat-label>
+        <input type="text" matInput placeholder="Apple" formControlName="productName">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Quantity</mat-label>
+        <input type="number" matInput placeholder="5" formControlName="quantity">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Product price</mat-label>
+        <input type="number" matInput placeholder="5$" formControlName="productPrice">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Product Description</mat-label>
+        <textarea matInput formControlName="productDescription" placeholder="Ex. Ecxcellent product"></textarea>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Product Image</mat-label>
+        <input type="text"  formControlName="productImage" matInput placeholder="Ex https://www.google.com/url">
+      </mat-form-field>
+      <button mat-raised-button color="primary">SubmitProduct</button>
+    </form>
+  </div>

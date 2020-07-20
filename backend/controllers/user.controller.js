@@ -1,5 +1,3 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const User = require('../models/user.model');
 const Product = require('../models/products.model');
 const Order = require('../models/order.model');
@@ -32,58 +30,6 @@ exports.addProduct = async (req, res, next) => {
     catch (err) {
         return res.status(400).json({ status: false, err });
     }
-};
-
-exports.login = async (req, res, next) => {
-    const { email, password, role } = req.body;
-
-    const user = await User.findOne({ email });
-
-    if (!email || !password) {
-        res.status(400).json({
-            success: false,
-            errMessage: "Please provide an email,password and role",
-        });
-        return;
-    }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        res.status(400).json({ success: false, errMessage: "Invalid Username and Password" });
-        return;
-    }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRE_TIME,
-    });
-    res.status(200).json({ success: true, token, user });
-};
-
-
-exports.signup = async (req, res, next) => {
-    const { email } = req.body;
-    User.findOne({ email: email }).then(async (user) => {
-
-
-        if (user) {
-            res.json({ success: false, data: "Email already in use!" });
-        } else {
-            const { firstname, lastname, role, email, phone_number } = req.body;
-            const salt = await bcrypt.genSalt(10);
-            const password = await bcrypt.hash(req.body.password, salt);
-            const newUser = {
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                password: password,
-                role: role,
-                phone_number: phone_number
-            }
-            User.create(newUser)
-                .then(user => res.json({ success: true, data: "created succesfully!", user }))
-                .catch(err => res.json({ success: false, err }));
-        }
-
-    })
-
 };
 
 exports.addToCart = async (req, res, next) => {
@@ -155,10 +101,32 @@ exports.addToOrder = async (req, res, next) => {
 };
 
 exports.getInventory = async (req, res, next) => {
+    console.log("inventory")
     const { farmerId } = req.query;
     try {
-        const products = await Product.find({ farmer_id: farmerId });
+        if (farmerId) {
+            const products = await Product.find({ farmer_id: farmerId });
+            return res.status(200).json({ succes: true, data: products });
+
+            //for testing
+        } else {
+            const products = await Product.find();
+            return res.status(200).json({ succes: true, data: products });
+        }
+    }
+    catch (err) {
+        return res.status(400).json({ status: false, err: "Error Occured" });
+    }
+}
+
+exports.getInventoryById = async (req, res, next) => {
+    console.log("inventoryBYID")
+    const { productName } = req.params;
+    try {
+
+        const products = await Product.find({ productName: productName });
         return res.status(200).json({ succes: true, data: products });
+
     }
     catch (err) {
         return res.status(400).json({ status: false, err: "Error Occured" });
@@ -265,9 +233,9 @@ exports.updateStatusToReadyandSendEmail = async (req, res, next) => {
 
         let d = date.getDate();
         let m = date.getMonth() + 1;
-        let y= date.getYear() + 1920;
+        let y = date.getYear() + 1920;
         console.log(convertedDate);
-        const convertedDate = y-m-d;
+        const convertedDate = y - m - d;
         const completedOrders = await Order.findByIdAndUpdate({ _id: orderId }, { order_status: order_status, pickup_date: convertedDate }, { new: true });
         return res.status(201).json({ status: true, data: completedOrders });
 

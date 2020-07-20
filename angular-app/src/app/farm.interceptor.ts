@@ -21,7 +21,6 @@ export class FarmInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${this.farmServ.getToken()}`
         }
       })
-    console.log(request);
     return next.handle(request);
 
   }

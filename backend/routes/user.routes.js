@@ -1,13 +1,14 @@
 const userRouter = require('express').Router();
 const userController = require('../controllers/user.controller');
 
-userRouter.post('/signup', userController.signup);//signup user
-userRouter.post('/signin', userController.login);//signin user
+
 
 //farmer
 // Add, Delete, Update, Retrieve products
 userRouter.post('/products', userController.addProduct);//add product
 userRouter.get('/products', userController.getInventory);//Retrieve products -->farmer get products & customer get products
+userRouter.get('/products/:productName', userController.getInventoryById);//Retrieve products -->farmer get products & customer get products
+
 userRouter.delete('/products', userController.deleteProduct);//Delete
 userRouter.delete('/products/:farmerId', userController.deleteAllProduct);//Delete all
 userRouter.patch('/products', userController.updateProduct);//Update

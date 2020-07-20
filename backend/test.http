@@ -54,6 +54,12 @@ PATCH  http://localhost:3000/api/v1/users/5f0de392c610ee2328341e0c/orders HTTP/1
 #get all products by farmer id (Retrieve products)
 
 GET   http://localhost:3000/api/v1/users/products?farmerId=5f0de3afc610ee2328341e0d HTTP/1.1 
+ 
+###
+
+#get all products by product name (Retrieve a products)
+
+GET   http://localhost:3000/api/v1/users/products/Injera HTTP/1.1 
 
 ###
 
@@ -134,3 +140,4 @@ Content-Type: application/json
 
 
 ###
+
