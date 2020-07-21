@@ -4,6 +4,7 @@ const Order = require('../models/order.model');
 
 
 exports.addProduct = async (req, res, next) => {
+    console.log("add product")
     const { farmer_id, productName, quantity, productPrice, productDescription, productImage } = req.body
     try {
         const foundProduct = await Product.findOne({ productName: req.body.productName });
@@ -99,20 +100,13 @@ exports.addToOrder = async (req, res, next) => {
     }
 
 };
-
+//get all products by farmer id
 exports.getInventory = async (req, res, next) => {
-    console.log("inventory")
+    console.log("get all products by farmer id")
     const { farmerId } = req.query;
     try {
-        if (farmerId) {
-            const products = await Product.find({ farmer_id: farmerId });
-            return res.status(200).json({ succes: true, data: products });
-
-            //for testing
-        } else {
-            const products = await Product.find();
-            return res.status(200).json({ succes: true, data: products });
-        }
+        const products = await Product.find({ farmer_id: farmerId });
+        return res.status(200).json({ succes: true, data: products });
     }
     catch (err) {
         return res.status(400).json({ status: false, err: "Error Occured" });
@@ -120,11 +114,12 @@ exports.getInventory = async (req, res, next) => {
 }
 
 exports.getInventoryById = async (req, res, next) => {
-    console.log("inventoryBYID")
-    const { productName } = req.params;
+    console.log("get by product product id ")
+    const { productId} = req.params;
+    // console.log( productId, )
     try {
 
-        const products = await Product.find({ productName: productName });
+        const products = await Product.findOne({ _id: productId });
         return res.status(200).json({ succes: true, data: products });
 
     }
@@ -135,7 +130,11 @@ exports.getInventoryById = async (req, res, next) => {
 
 exports.deleteProduct = async (req, res, next) => {
     const { prodId } = req.query;
-    const product = await Product.findByIdAndDelete({ _id: prodId }, { new: true });
+    console.log(prodId);
+    // const { farmer_id } = req.query;
+    // console.log(farmer_id);
+    const product = await Product.deleteOne({ _id: prodId});
+    // console.log(product);
     return res.status(200).json({ succes: true, data: product });
 };
 

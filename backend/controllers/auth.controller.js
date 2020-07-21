@@ -6,9 +6,9 @@ const User = require('../models/user.model');
 
 exports.login = async (req, res, next) => {
     const { email, password, role } = req.body;
-
+ //console.log(req.body)
     const user = await User.findOne({ email });
-
+    
     if (!email || !password) {
         res.status(400).json({
             success: false,
@@ -24,6 +24,7 @@ exports.login = async (req, res, next) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE_TIME,
     });
+     //console.log(token);
     res.status(200).json({ success: true, token, user });
 };
 

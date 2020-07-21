@@ -10,7 +10,14 @@ import { Router } from '@angular/router';
 })
 export class AddProductsComponent implements OnInit {
   addFormData: FormGroup;
-  constructor(private fb: FormBuilder, private farmServ: FarmerApiService, private route: Router) { }
+  farmer_id;
+    constructor(private fb: FormBuilder, private farmServ: FarmerApiService, private route: Router) { 
+      this.farmServ.getLoggedInUser().subscribe(res => {
+        console.log("res",res)
+        this.farmer_id = res.user._id;
+        console.log('farmer ID:',this.farmer_id)  
+      })
+  }
 
  
   ngOnInit(): void {
@@ -22,11 +29,18 @@ export class AddProductsComponent implements OnInit {
        productImage: ['', Validators.required]
     });
   }
-
+  
+  
   onSubmit() {
-    this.farmServ.addProduct(this.addFormData.value);
-    console.log(this.addFormData.value);
-    this.route.navigate(['products']);
+    let formValue=this.addFormData.value
+    let body = { ...formValue, farmer_id :this.farmer_id };
+    console.log(body);
+    this.farmServ.addProduct(body).subscribe(res => {
+      console.log(res)
+      this.route.navigate(['products']);
+    });
+  
+    
    
   }
 

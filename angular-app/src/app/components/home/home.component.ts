@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   user = null;
   constructor(private farmServ: FarmerApiService,private router:Router) {
-    console.log('insded constructor')
-    this.farmServ.getLoggedInUser().subscribe(u => {
-      this.user = u;
-      console.log('user:',u, this.user)
-    });
+    // console.log('insded constructor')
+    // this.farmServ.getLoggedInUser().subscribe(u => {
+    //   this.user = u;
+    //   console.log('user:',u, this.user)
+    // });
   }
 
   ngOnInit(): void {

@@ -2,8 +2,8 @@
 
 <button type="button" style="margin: 135px;  position:absolute;top: 10px; right:0;" 
 [routerLink]="['newproduct']" mat-stroked-button color="primary">Add New Product</button>
-<div class="animated fadeIn">
-    <mat-table #table [dataSource]="productList" class="mat-elevation-z20">
+<div class="table-list">
+    <mat-table  [dataSource]="productList" class="mat-elevation-z8">
 
         <!-- Position Column -->
         <ng-container matColumnDef="No">
@@ -36,7 +36,7 @@
         <ng-container matColumnDef="Action">
             <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
             <mat-cell *matCellDef="let element">
-                <button type="button" [routerLink]="[element.productName]" mat-stroked-button color="primary"> Edit
+                <button type="button" [routerLink]="[element._id]" mat-stroked-button color="primary"> Edit
                 </button>
                 <!-- <a [routerLink]="[element._id]" [state]="{body:element}" mat-stroked-button color="primary"> Details </a> -->
                 <button type="button" (click)="deleteProduct(element._id)" mat-stroked-button

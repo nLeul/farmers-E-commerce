@@ -17,25 +17,25 @@ export class FarmerApiService {
   user: any;
   constructor(private http: HttpClient) { }
 
-  getProducts() {
-    return this.http.get<IProducts>('http://localhost:3000/api/v1/users/products');
+  getProducts(farmerId) {
+    return this.http.get<IProducts>(`http://localhost:3000/api/v1/users/products?farmerId=${farmerId}`);
   }
   deleteProduct(prodId) {
-    return this.http.delete<IProducts>(`http://localhost:3000/api/v1/users/products/${prodId}`);
+    return this.http.delete<IProducts>(`http://localhost:3000/api/v1/users/products?prodId=${prodId}`);
   }
   editProduct(prodId, formData) {
-    return this.http.patch<IProducts>(`http://localhost:3000/api/v1/users/products/${prodId}`, formData);
+    return this.http.patch<IProducts>(`http://localhost:3000/api/v1/users/products?prodId=${prodId}`, formData);
   }
-  getProductByName(prodName) {
-    return this.http.get<IProducts>(`http://localhost:3000/api/v1/users/products/${prodName}`);
+  getProductById(prodId) {
+    return this.http.get<IProducts>(`http://localhost:3000/api/v1/users/products/${prodId}`);
   }
   addProduct(data) {
     return this.http.post<IProducts>('http://localhost:3000/api/v1/users/products ',data)
   }
 
-  login(user) {
+  login(user_log) {
 
-    return this.http.post(`http://localhost:3000/api/v1/users/signin`, user).pipe(
+    return this.http.post(`http://localhost:3000/api/v1/users/signin`, user_log).pipe(
       tap((u) => {
         this.user = u;
         console.log(this.user);
@@ -44,9 +44,6 @@ export class FarmerApiService {
     );
   }
 
-  getToken() {
-    return localStorage.getItem('token');
-  }
   getLoggedInUser(): Observable<any> {
     return of(this.user);
   }

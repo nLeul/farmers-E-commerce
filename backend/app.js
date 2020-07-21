@@ -13,5 +13,6 @@ const publicRouter=require('./routes/auth.routes')
 
 // app.use('/api/v1', customerRouter);
 app.use('/api/v1/users', publicRouter);
-app.use('/api/v1/users',protect, userRouter);
+app.use('/api/v1/users', userRouter);
+
 module.exports = app;
