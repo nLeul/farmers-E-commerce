@@ -51,4 +51,14 @@ export class FarmerApiService {
     this.user = null;
   }
 
+  getOrdersByStatus(pending,ready,complete) {
+    return this.http.get<IProducts>(`http://localhost:3000/api/v1/users/orders?pending=${pending}&ready=${ready}&complete=${complete} ` )
+  }
+  readyOrder(orderId,data) {
+    return this.http.patch<IProducts>(`http://localhost:3000/api/v1/users/farmers/${orderId}`,data)
+  }
+  completeOrder(orderId,data) {
+    return this.http.patch<IProducts>(`http://localhost:3000/api/v1/users/farmers/${orderId}`,data)
+  }
+
 }

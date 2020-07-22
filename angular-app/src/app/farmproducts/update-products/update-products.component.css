@@ -14,3 +14,9 @@
   .full-width {
     width: 100%;
   }
+
+  h1{
+    text-align:center;
+    margin-top: 70px;
+    color: rgb(103, 58, 182);
+  }

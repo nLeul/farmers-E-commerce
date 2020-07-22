@@ -10,7 +10,8 @@ import { RouterModule } from '@angular/router';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon'
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -28,7 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
      
     ]),
 
-    MatTableModule,MatFormFieldModule,MatInputModule,MatButtonModule
+    MatTableModule,MatFormFieldModule,MatInputModule,MatButtonModule,MatIconModule
   ]
 })
 export class FarmproductsModule { }

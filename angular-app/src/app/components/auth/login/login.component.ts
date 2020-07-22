@@ -30,12 +30,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
        this.farmServ.login(this.loginForm.value).subscribe((res: any) => {
-      //localStorage.setItem("token", res.token);
       this.router.navigate(["products"]);
     });
-    //this.user = this.farmServ.getLoggedInUser();
-    //console.log(this.user);
-
   }
 
 

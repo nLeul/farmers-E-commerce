@@ -34,9 +34,9 @@ export class AddProductsComponent implements OnInit {
   onSubmit() {
     let formValue=this.addFormData.value
     let body = { ...formValue, farmer_id :this.farmer_id };
-    console.log(body);
+    console.log("before getting added",body);
     this.farmServ.addProduct(body).subscribe(res => {
-      console.log(res)
+      console.log("added from add form",res)
       this.route.navigate(['products']);
     });
   

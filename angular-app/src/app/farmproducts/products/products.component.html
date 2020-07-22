@@ -1,14 +1,16 @@
-<h1 style="margin: 50px; margin-left:380px; color: purple;"> Product List </h1>
-
-<button type="button" style="margin: 135px;  position:absolute;top: 10px; right:0;" 
-[routerLink]="['newproduct']" mat-stroked-button color="primary">Add New Product</button>
+<h1> Product List </h1>
+<button  style="margin: 135px; position:absolute;top: 10px; right:0;" [routerLink]="['newproduct']" color="primary" mat-mini-fab >
+    <mat-icon>plus_one</mat-icon>
+  </button>
+<!-- <button type="button" style="margin: 135px;  position:absolute;top: 10px; right:0;" [routerLink]="['newproduct']"
+    mat-stroked-button color="primary">Add New Product</button> -->
 <div class="table-list">
-    <mat-table  [dataSource]="productList" class="mat-elevation-z8">
+    <mat-table [dataSource]="productList" class="mat-elevation-z8">
 
         <!-- Position Column -->
         <ng-container matColumnDef="No">
-            <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef> Product ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element._id|slice:15:24}} </mat-cell>
         </ng-container>
 
         <!-- Name Column -->

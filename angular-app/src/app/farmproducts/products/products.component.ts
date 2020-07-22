@@ -25,7 +25,7 @@ export class ProductsComponent implements OnInit {
 
     });
     this.subscription$ = this.farmService.getProducts(this.farmerId).subscribe((prod: any) => {
-      console.log(prod);
+      console.log("products",prod);
       this.productList = prod.data
     });
 
@@ -40,11 +40,12 @@ export class ProductsComponent implements OnInit {
 
 
   deleteProduct(prodId: number) {
-    console.log(prodId);
     this.farmService.deleteProduct(prodId).subscribe(res => {
-      console.log("res", { res })
-      this.router.navigate(['products', ""])
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['products']);
+    }); 
     });
+   
   }
 
   ngOnDestroy() {

@@ -20,7 +20,6 @@ export class FarmInterceptor implements HttpInterceptor {
 
     let temp = null;
     this.farmServ.getLoggedInUser().subscribe(check => { 
-      //console.log(check);
       temp = check;
     })
     if (temp) { 
