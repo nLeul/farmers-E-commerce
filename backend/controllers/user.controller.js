@@ -1,6 +1,7 @@
 const User = require('../models/user.model');
 const Product = require('../models/products.model');
 const Order = require('../models/order.model');
+const {sendEmailToCustomer} =require('../services/sendEmail')
 
 
 exports.addProduct = async (req, res, next) => {
@@ -115,7 +116,7 @@ exports.getInventory = async (req, res, next) => {
 
 exports.getInventoryById = async (req, res, next) => {
     console.log("get by product product id ")
-    const { productId} = req.params;
+    const { productId } = req.params;
     // console.log( productId, )
     try {
 
@@ -133,7 +134,7 @@ exports.deleteProduct = async (req, res, next) => {
     console.log(prodId);
     // const { farmer_id } = req.query;
     // console.log(farmer_id);
-    const product = await Product.deleteOne({ _id: prodId});
+    const product = await Product.deleteOne({ _id: prodId });
     // console.log(product);
     return res.status(200).json({ succes: true, data: product });
 };
@@ -210,7 +211,8 @@ exports.getOrderHistory = async (req, res, next) => {
 }
 exports.updateStatusToComplete = async (req, res, next) => {
     try {
-        const { orderId } = req.params;
+        console.log("updateStatusToComplete")
+        const { orderId } = req.query;
         const { order_status } = req.body;
         console.log(orderId);
         console.log(order_status);
@@ -225,17 +227,17 @@ exports.updateStatusToComplete = async (req, res, next) => {
 }
 exports.updateStatusToReadyandSendEmail = async (req, res, next) => {
     try {
-        const { orderId } = req.params;
+        console.log("inside");
+        const { orderIdFromReady } = req.params;
         const { order_status, firstname, lastname, email } = req.body;
         const { pickup_date } = req.body;
-        const date = new Date(pickup_date);
-
-        let d = date.getDate();
-        let m = date.getMonth() + 1;
-        let y = date.getYear() + 1920;
-        console.log(convertedDate);
-        const convertedDate = y - m - d;
-        const completedOrders = await Order.findByIdAndUpdate({ _id: orderId }, { order_status: order_status, pickup_date: convertedDate }, { new: true });
+ 
+        const completedOrders = await Order.findByIdAndUpdate({ _id: orderIdFromReady }, { order_status: order_status, pickup_date: pickup_date }, { new: true });
+        const user = await User.findOne({ _id: completedOrders.customer_id });
+        console.log(user.email);
+    //    sendEmailToCustomer(user.email,pickup_date);
+      
+console.log("here")
         return res.status(201).json({ status: true, data: completedOrders });
 
     }

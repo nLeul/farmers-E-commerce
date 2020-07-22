@@ -125,14 +125,11 @@ Content-Type: application/json
 ###
 
 #farmer set order ready and pick up time and send email
-PATCH       http://localhost:3000/api/v1/users/farmers/5f0e6b8c5f5996702c728a89  HTTP/1.1 
+PATCH       http://localhost:3000/api/v1/users/farmers/5f0e3f028e0ff65a6bc49b2d  HTTP/1.1 
 Content-Type: application/json
 
 {
     "order_status":"ready",
-    "firstname":"leul",
-    "lastname":"necha",
-    "email":"lnecha@mum.edu",
     "pickup_date":"2019-07-15T02:35:56.446Z"
 
 
