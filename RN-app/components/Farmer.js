@@ -11,19 +11,19 @@ const Farmer = ({ data }) => {
 
     };
 
-    const { index, title, faculty, code, rating } = data;
+    const { index, firstname, lastname, phone_number,reputation} = data;
 
     return (
         <View
             style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7' }}>
             <View style={styles.row}>
                 <View style={styles.stars}>
-                    <Stars rating={rating} />
+                    <Stars rating={reputation} />
                 </View>
 
                 <View style={styles.course}>
-                    <Text>{title}</Text>
-                    <Text style={styles.faculty}>{code} - {faculty}</Text>
+                    <Text>{firstname}</Text>
+                    <Text style={styles.lastname}>{phone_number} - {lastname}</Text>
                 </View>
 
                 <View style={styles.edges}>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 8,
     },
-    faculty: {
+    lastname: {
         color: 'grey',
     },
     button: {

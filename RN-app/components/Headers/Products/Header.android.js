@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 
@@ -14,7 +15,7 @@ const Header = () => {
         }}>
         <Image source={CourseImage} />
       </View>
-      <Text style={HeaderStyle.ios}>Farmers Review</Text>
+      <Text style={HeaderStyle.android}>Products List</Text>
     </View>
   )
 };

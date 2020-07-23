@@ -14,7 +14,7 @@ const Header = () => {
         }}>
         <Image source={CourseImage} />
       </View>
-      <Text style={HeaderStyle.ios}>Farmers Review</Text>
+      <Text style={HeaderStyle.ios}>Farmers List</Text>
     </View>
   )
 };
