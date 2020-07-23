@@ -5,24 +5,11 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  template:`<img src="https://attra.ncat.org/wp-content/uploads/2018/07/ATTRA-SIFT-FARM-slide.jpg" alt="Italian Trulli">
+  `,
+  styles:['img {width:100%;height:auto}']
+ 
 })
-export class HomeComponent implements OnInit {
-  user = null;
-  constructor(private farmServ: FarmerApiService,private router:Router) {
-  }
-
-  ngOnInit(): void {
-  }
-
-  getLoggedInUser(): Observable<any> {
-    return this.farmServ.getLoggedInUser();
-  }
-  logout(): void {
-    this.farmServ.logout();
-    this.router.navigate(['/'])
-  }
-
+export class HomeComponent {
 
 }

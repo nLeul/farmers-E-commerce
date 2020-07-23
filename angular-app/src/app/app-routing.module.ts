@@ -5,9 +5,10 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { AppComponent } from './app.component';
 import { LogoutComponent } from './components/auth/logout/logout.component';
 import { of } from 'rxjs';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  { path: '', component: HomeComponent },
   { path: 'signin', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'logout', component: LogoutComponent },

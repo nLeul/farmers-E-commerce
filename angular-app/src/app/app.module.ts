@@ -50,6 +50,6 @@ import { FarmInterceptor } from './farm.interceptor';
 
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:FarmInterceptor,multi:true}],
-  bootstrap: [HomeComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

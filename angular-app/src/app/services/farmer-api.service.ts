@@ -36,12 +36,16 @@ export class FarmerApiService {
   login(user_log) {
 
     return this.http.post(`http://localhost:3000/api/v1/users/signin`, user_log).pipe(
-      tap((u) => {
+      tap((u:any) => {
         this.user = u;
         console.log(this.user);
-        //localStorage.setItem("token", u.token);
+       localStorage.setItem("user", JSON.stringify(this.user));
       })
     );
+  }
+
+  setUser() {
+       this.user= JSON.parse(localStorage.getItem("user"));
   }
 
   getLoggedInUser(): Observable<any> {
@@ -49,6 +53,8 @@ export class FarmerApiService {
   }
   logout() {
     this.user = null;
+    localStorage.removeItem("user");
+
   }
 
   getOrdersByStatus(pending,ready,complete) {
