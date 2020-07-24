@@ -1,29 +1,42 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
-import Stars from './Stars';
 
 
 
 const Product = ({ data }) => {
 
+    const navigation = useNavigation();
 
     const addToCart = () => {
-
+         navigation.navigate('CART');
     };
 
-    const { index, title, faculty, code, rating } = data;
+    const {_id,index,productName, quantity, productPrice, productDescription, productImage } = data;
 
     return (
         <View
-            style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7' }}>
+            style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7' }}
+        >
             <View style={styles.row}>
-                <View style={styles.stars}>
-                    <Stars rating={rating} />
-                </View>
-
+                {/* <View>
+                    <Text>{_id}</Text>
+                </View> */}
                 <View style={styles.course}>
-                    <Text>{title}</Text>
-                    <Text style={styles.faculty}>{code} - {faculty}</Text>
+                    <Text>{productName}</Text>
+                    <Text style={styles.faculty}>{productName} - {productPrice}</Text>
+                </View>
+                <View>
+                    <Text>{quantity}</Text>
+                </View>
+                <View>
+                    <Text>{productPrice}</Text>
+                </View>
+                <View>
+                    <Text>{productDescription}</Text>
+                </View>
+                <View>
+                    <Text>{productImage}</Text>
                 </View>
 
                 <View style={styles.edges}>
@@ -31,7 +44,7 @@ const Product = ({ data }) => {
                         onPress={addToCart}
                         style={styles.button}
                         underlayColor="#5398DC">
-                        <Text style={styles.buttonText}>Shop</Text>
+                        <Text style={styles.buttonText}>Add</Text>
                     </TouchableHighlight>
                 </View>
             </View>
@@ -93,3 +106,4 @@ const styles = StyleSheet.create({
 });
 
 export default Product;
+

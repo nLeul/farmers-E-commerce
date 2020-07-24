@@ -11,12 +11,10 @@ import * as Animatable from 'react-native-animatable';
 const Home = ({ navigation: { navigate } }) => {
     const goToSignIn = () => {
      navigate('SIGNIN')
-        // alert("hello")
     };
   
     const goToSignup = () => {
       navigate('SIGNUP')
-      // alert("hello")
   };
 
 
