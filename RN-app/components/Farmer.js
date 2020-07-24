@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import Stars from './Stars';
 
@@ -6,12 +7,16 @@ import Stars from './Stars';
 
 const Farmer = ({ data }) => {
 
+    const navigation = useNavigation();
 
-    const addToCart = () => {
-
+    const seeFarmerProducts = (productId) => {
+        // alert("hi");
+        // navigation.navigate('EACH_FARMERS_PRODUCT',{id:{productId}});
+        navigation.navigate('PRODUCTS', { id: productId });
+        console.log("product id from the farmer", productId);
     };
 
-    const { index, firstname, lastname, phone_number,reputation} = data;
+    const { _id, index, firstname, lastname, phone_number, reputation } = data;
 
     return (
         <View
@@ -28,7 +33,7 @@ const Farmer = ({ data }) => {
 
                 <View style={styles.edges}>
                     <TouchableHighlight
-                        onPress={addToCart}
+                        onPress={()=>seeFarmerProducts(_id)}
                         style={styles.button}
                         underlayColor="#5398DC">
                         <Text style={styles.buttonText}>Shop</Text>
