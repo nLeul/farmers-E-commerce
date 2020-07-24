@@ -1,6 +1,7 @@
 const User = require('../models/user.model');
 const Product = require('../models/products.model');
 const Order = require('../models/order.model');
+const nodemailer = require('nodemailer');
 const {sendEmailToCustomer} =require('../services/sendEmail')
 
 
