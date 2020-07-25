@@ -1,35 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
+import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableHighlight } from 'react-native';
 import Header from './Headers/Carts/Header';
+import StateContext from '../StateContext';
 
 
-
-const cart = {
-
-
-    cart_items: [
-        {
-            prodId: 1,
-            quantity: 2,
-        }
-    ],
-    totalPrice: 4
-}
 
 const Carts = () => {
+
+    const { user } = useContext(StateContext);
     const navigation = useNavigation();
+    // const { customer_Id } = params;
 
     const [cart, setCart] = useState(null);
 
     // get cart and set to a variable
     useEffect(() => {
-        const url = `https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/${customer_Id}`;
+        const url = `https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/5f0b7fc96d7acaf714688b2f`;
+
         axios.patch(url).then(cart => {
             const { data } = cart.data;
             setCart(data);
         });
-    }, []);
+    },[]);
     const pay = () => {
         alert("you have added i product")
 
@@ -39,7 +33,7 @@ const Carts = () => {
         //  navigation.navigate('CART');
     };
 
-    const { _id, index, cart_items, totalPrice } = cart;
+    // const { cart_items, totalPrice } = cart;
 
 
     return (
@@ -54,7 +48,7 @@ const Carts = () => {
             <View>
                 <Header />
             </View >
-            <View style={styles.row}>
+            {/* <View style={styles.row}>
                 <Text>Cart</Text>
                 <View style={styles.course}>
                     <FlatList
@@ -68,9 +62,8 @@ const Carts = () => {
                     // keyExtractor={item => item._id}
 
                     />
-                    <Text style={styles.faculty}>{_id}</Text>
                     <Text style={styles.faculty}>{totalPrice}</Text>
-                </View>
+                </View> */}
                 <View style={styles.edges}>
                     <TouchableHighlight
                         onPress={pay}
@@ -85,7 +78,7 @@ const Carts = () => {
                         <Text style={styles.buttonText}>Pay</Text>
                     </TouchableHighlight>
                 </View>
-            </View>
+            {/* </View> */}
         </SafeAreaView>
 
 

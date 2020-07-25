@@ -1,13 +1,20 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import { View, Platform, SafeAreaView, FlatList } from 'react-native';
+import { View,Text, Platform, SafeAreaView, FlatList,TouchableHighlight,StyleSheet } from 'react-native';
 import Header from './Headers/Products/Header';
 import Product from './Product';
 
 
 
 const Products = ({ route: { params } }) => {
+    const navigation = useNavigation();
+    const goToCart = () => {//this is farmers_id---wrong
+        // redirect to Cart where he can pay
+        // http://localhost:3000/api/v1/users/5f0b7fc96d7acaf714688b2f/products/5f1b7602f80986000a49085f/cart/1
+        navigation.navigate('CART');
+    };
 
     const [products, setProducts] = useState([]);
     const { id } = params;
@@ -33,6 +40,12 @@ const Products = ({ route: { params } }) => {
             <View>
                 <Header />
             </View >
+            <TouchableHighlight
+                onPress={() => goToCart()}
+                style={styles.button}
+                underlayColor="#5398DC">
+                <Text style={styles.buttonText}>Cart</Text>
+            </TouchableHighlight>
             <FlatList
                 data={products}
                 renderItem={({ item }) => <Product
@@ -45,5 +58,22 @@ const Products = ({ route: { params } }) => {
         </SafeAreaView>
     );
 }
+const styles = StyleSheet.create({
+    button: {
+        borderWidth: 1,
+        borderColor: '#0066CC',
+        borderRadius: 14,
+        paddingHorizontal: 10,
+        paddingVertical: 3,
+        backgroundColor: '#fff',
+    },
+    buttonText: {
+        color: '#0066CC',
+        fontSize: 12,
+        textAlign: 'center',
+    }
+})
+    
+
 
 export default Products;

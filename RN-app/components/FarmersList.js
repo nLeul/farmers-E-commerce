@@ -1,12 +1,15 @@
 import 'react-native-gesture-handler';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import axios from 'axios';
 import { View, Platform, SafeAreaView, FlatList } from 'react-native';
 import Header from './Headers/Farmers/Header';
 import Farmer from './Farmer';
+import StateContext from '../StateContext';
 
 
 const FarmersList = () => {
+
+    const { user } = useContext(StateContext);
 
     const [farmers, setFarmers] = useState([]);
    

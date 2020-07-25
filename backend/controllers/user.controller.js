@@ -36,15 +36,19 @@ exports.addProduct = async (req, res, next) => {
 };
 
 exports.addToCart = async (req, res, next) => {
-    const custId = req.params.custId
-    const { prodId, quantity } = req.body;
+    let { custId, prodId, quantity } = req.params
+    console.log("inside add to cart")
+    quantity = Number(quantity);
     const product = await Product.findById(prodId);
     const foundUser = await User.findById(custId);
 
     if (foundUser) {
         const foundIndex = foundUser.cart.cart_items.findIndex(product => product.prodId == prodId);
         if (foundIndex === -1) {
-            foundUser.cart.cart_items.push(req.body);
+            foundUser.cart.cart_items.push({
+                prodId:prodId,
+                quantity:quantity,
+            });
         }
         else {
             foundUser.cart.cart_items[foundIndex].quantity += quantity;

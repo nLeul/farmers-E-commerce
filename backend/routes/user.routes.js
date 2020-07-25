@@ -18,8 +18,9 @@ userRouter.patch('/products', userController.updateProduct);//Update
 //customer
 userRouter.get('/farmers', userController.getAllFarmers);// customer browse all farmers
 // userRouter.get('/products', userController.getInventory);//customer  browse all products
-userRouter.patch('/:custId', userController.addToCart);//add to cart
+userRouter.patch('/:custId/products/:prodId/cart/:quantity', userController.addToCart);//add to cart
 userRouter.patch('/:custId/orders', userController.addToOrder);//add to order and clear cart
+
 
 //order
 userRouter.get('/orders', userController.filterOrders);//Farmers  see all orders and filter them by status.

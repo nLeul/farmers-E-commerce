@@ -1,54 +1,76 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
+import StateContext from '../StateContext';
+
+
 
 
 
 const Product = ({ data }) => {
 
+    const { user } = useContext(StateContext);
+    const customerId = user.user._id;
+
     const navigation = useNavigation();
 
-    const addToCart = () => {
-         navigation.navigate('CART');
+    const addToCart = async (productId) => {
+        try {
+            const url = `http://localhost:3000/api/v1/users/${customerId}/products/${productId}/cart/1`
+            const cartRes = await axios.patch(url);
+            console.log("patched res", cartRes);
+        }
+        catch (err) {
+            console.log(err);
+        }
+
+        // add one product to cart
     };
 
-    const {_id,index,productName, quantity, productPrice, productDescription, productImage } = data;
+
+    const { _id, index, productName, quantity, productPrice, productDescription, productImage } = data;
 
     return (
-        <View
-            style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7' }}
-        >
-            <View style={styles.row}>
-                {/* <View>
+        <ScrollView>
+
+            <View
+                style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7' }}
+            >
+
+                <View style={styles.row}>
+                    {/* <View>
                     <Text>{_id}</Text>
                 </View> */}
-                <View style={styles.course}>
-                    <Text>{productName}</Text>
-                    <Text style={styles.faculty}>{productName} - {productPrice}</Text>
-                </View>
-                <View>
-                    <Text>{quantity}</Text>
-                </View>
-                <View>
-                    <Text>{productPrice}</Text>
-                </View>
-                <View>
-                    <Text>{productDescription}</Text>
-                </View>
-                <View>
-                    <Text>{productImage}</Text>
-                </View>
+                    <View style={styles.course}>
+                        <Text>{productName}</Text>
+                        <Text style={styles.faculty}>{productName} - {productPrice}</Text>
+                    </View>
+                    <View>
+                        <Text>{quantity}</Text>
+                    </View>
+                    <View>
+                        <Text>{productPrice}</Text>
+                    </View>
+                    <View>
+                        <Text>{productDescription}</Text>
+                    </View>
+                    <View>
+                        <Text>{productImage}</Text>
+                    </View>
 
-                <View style={styles.edges}>
-                    <TouchableHighlight
-                        onPress={addToCart}
-                        style={styles.button}
-                        underlayColor="#5398DC">
-                        <Text style={styles.buttonText}>Add</Text>
-                    </TouchableHighlight>
+                    <View style={styles.edges}>
+                        <TouchableHighlight
+                            onPress={() => addToCart(_id)}
+                            style={styles.button}
+                            underlayColor="#5398DC">
+                            <Text style={styles.buttonText}>Add</Text>
+                        </TouchableHighlight>
+
+                    </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 

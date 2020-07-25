@@ -2,7 +2,7 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect,useContext } from 'react';
 import { AsyncStorage } from 'react-native';
-import AuthContext from '../AuthContext';
+import StateContext from '../StateContext';
 
 
 import {
@@ -11,7 +11,8 @@ import {
     StyleSheet,
     TouchableOpacity,
     Platform,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -22,11 +23,18 @@ import { Entypo } from '@expo/vector-icons';
 
 const SignIn = ({ navigation }) => {
 
-  const {a}=useContext(AuthContext);
+    const {user,SignInHandler} = useContext(StateContext);
 
-    const goToFarmersList = () => {
-        navigation.navigate("TABS");
-        // alert("Sign In");
+   
+ 
+    const goToFarmersList = async () => {
+        let result = await SignInHandler();
+        if (result) {
+            navigation.navigate("TABS");
+        } else {
+            Alert.alert("Sign in Failed");
+            
+        }
     }
 
     return (
@@ -56,7 +64,7 @@ const SignIn = ({ navigation }) => {
                         <AntDesign name="checkcircle" size={20} color="#1c8adb" />
                     </Animatable.View>
                 </View>
-                <Text style={[styles.text_footer, { marginTop: 35 }]}>Password {a}</Text>
+                <Text style={[styles.text_footer, { marginTop: 35 }]}>Password </Text>
                 <View style={styles.action}>
                     <FontAwesome name="lock" size={20} color="#1c8adb" />
                     <TextInput

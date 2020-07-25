@@ -1,12 +1,14 @@
 import 'react-native-gesture-handler';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useEffect,useState } from 'react';
+import axios from 'axios';
+import { AsyncStorage, Alert } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Entypo } from '@expo/vector-icons';
-import { Fontisto } from '@expo/vector-icons'; 
-import { AntDesign } from '@expo/vector-icons'; 
+import { Fontisto } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
@@ -19,11 +21,13 @@ import Products from 'components/Products';
 import Carts from 'components/Carts';
 import EachProduct from 'components/EachProduct';
 import Logout from 'components/Logout';
-import AuthContext from './AuthContext';
+import StateContext from './StateContext';
 
 const Drawer = createDrawerNavigator();
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
+
+
 
 
 function ProductStack() {
@@ -47,7 +51,7 @@ function TABS() {
           }
           else if (route.name === 'CART') {
             return <Entypo name="shopping-cart" size={24} color="black" />
-          }else if (route.name === 'LOGOUT') {
+          } else if (route.name === 'LOGOUT') {
             return <MaterialCommunityIcons name="logout" size={24} color="black" />
           }
 
@@ -56,11 +60,11 @@ function TABS() {
       })}
 
     >
-      <Tab.Screen name="FARMERS" component={ProductStack} />
+      <Tab.Screen name="FARMERS" component={FarmersList} />
       <Tab.Screen name="PRODUCTS" component={Products} />
       <Tab.Screen name="CART" component={Carts} />
       <Tab.Screen name="LOGOUT" component={Logout}
-      
+
       />
     </Tab.Navigator>
 
@@ -70,18 +74,59 @@ function TABS() {
 
 
 export default function App() {
+
+  const [user, setUser] = useState(null);
+
+  const url = 'http://localhost:3000/api/v1/users/signin';
+
+  const SignInHandler = async () => {
+    try {
+
+
+      const loginRes = await axios.post(url, {
+        "email": "lnecha@mum.edu",
+        "password": "1234"
+
+      });
+      let userState = loginRes.data.success
+      if (userState) {
+        setUser(loginRes.data)
+        await AsyncStorage.setItem("user", JSON.stringify(loginRes.data));
+        return true;
+      } else {
+        return false;
+      }
+
+    }
+    catch (err) {
+
+      // Alert.alert(err.message)
+      return false
+    }
+
+  }
+
+
+  useEffect(() => {
+    (async () => {
+      const storedUser = await AsyncStorage.getItem("user");
+
+      setUser(JSON.parse(storedUser));
+    })();
+
+  }, []);
   return (
-    <AuthContext.Provider value={{a:1}}>
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="HOME" component={Home} options={{ title: "Home" }} />
-        <Drawer.Screen name="SIGNIN" component={SignIn} options={{ title: "Sign In" }} />
-        <Drawer.Screen name="SIGNUP" component={SignUp} options={{ title: "Register" }} />
-        <Drawer.Screen name="TABS" component={TABS} options={{ title: "Products & Cart" }} />
-      </Drawer.Navigator>
+    <StateContext.Provider value={{ user, SignInHandler }}>
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="HOME" component={Home} options={{ title: "Home" }} />
+          <Drawer.Screen name="SIGNIN" component={SignIn} options={{ title: "Sign In" }} />
+          <Drawer.Screen name="SIGNUP" component={SignUp} options={{ title: "Register" }} />
+          <Drawer.Screen name="TABS" component={TABS} options={{ title: "Products & Cart" }} />
+        </Drawer.Navigator>
       </NavigationContainer>
-    </AuthContext.Provider>
-      
+    </StateContext.Provider>
+
   );
 }
 

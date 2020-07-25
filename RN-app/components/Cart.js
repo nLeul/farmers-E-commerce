@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableHighlight, FlatList } from 'react-nati
 
 
 
+
 const Product = ({ data }) => {
 
     const navigation = useNavigation();
