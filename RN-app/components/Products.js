@@ -13,8 +13,10 @@ const Products = ({ route: { params } }) => {
     const { id } = params;
     // get products and set to a variable
     useEffect(() => {
-        const url = `http://localhost:3000/api/v1/users/products?farmerId=${id}`;
-        axios.get(url).then(products => {
+        // const url = `http://localhost:3000/api/v1/users/products?farmerId=${id}`;
+        // console.log(url);
+        const productsurl = `https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/products?farmerId=${id}`
+        axios.get(productsurl).then(products => {
             const { data } = products.data;
             setProducts(data);
         });

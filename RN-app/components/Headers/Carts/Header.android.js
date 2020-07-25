@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { Text, View, Image } from 'react-native';
 
 import HeaderStyle from 'styles/HeaderStyle';
-import CourseImage from 'images/product.png';
+import CourseImage from 'images/cart.png';
 
 const Header = () => {
   return (
@@ -14,7 +15,7 @@ const Header = () => {
         }}>
         <Image source={CourseImage} />
       </View>
-      <Text style={HeaderStyle.ios}>Products List</Text>
+      <Text style={HeaderStyle.android}>Cart</Text>
     </View>
   )
 };

@@ -36,7 +36,7 @@ const SignUp = ({ navigation }) => {
                 <View style={styles.action}>
                     <FontAwesome
                         name="user-circle-o"
-                        color="#05375a"
+                        color="#1c8adb"
                         size={20}
                     />
                     <TextInput
@@ -45,14 +45,14 @@ const SignUp = ({ navigation }) => {
                         autoCapitalize="none"
                     />
                     <Animatable.View animation="bounceIn">
-                        <AntDesign name="checkcircle" size={20} color="#05375a" />
+                        <AntDesign name="checkcircle" size={20} color="#1c8adb" />
                     </Animatable.View>
                 </View>
                 <Text style={[styles.text_footer, { marginTop: 35 }]}>Phone Number</Text>
                 <View style={styles.action}>
                     <FontAwesome
                         name="user-circle-o"
-                        color="#05375a"
+                        color="#1c8adb"
                         size={20}
                     />
                     <TextInput
@@ -61,12 +61,12 @@ const SignUp = ({ navigation }) => {
                         autoCapitalize="none"
                     />
                     <Animatable.View animation="bounceIn">
-                        <AntDesign name="checkcircle" size={20} color="#05375a" />
+                        <AntDesign name="checkcircle" size={20} color="#1c8adb" />
                     </Animatable.View>
                 </View>
                 <Text style={[styles.text_footer, { marginTop: 35 }]}>Password</Text>
                 <View style={styles.action}>
-                    <FontAwesome name="lock" size={20} color="#05375a" />
+                    <FontAwesome name="lock" size={20} color="#1c8adb" />
                     <TextInput
                         placeholder="Enter Password"
                         style={styles.textInput}
@@ -75,14 +75,13 @@ const SignUp = ({ navigation }) => {
                     />
                     <TouchableOpacity >
                         <Animatable.View animation="bounceIn">
-                            <Entypo name="eye-with-line" size={20} color="#05375a" />
-                            <Entypo name="eye" size={20} color="#05375a" />
+                            <Entypo name="eye" size={20} color="#1c8adb" />
                         </Animatable.View>
                     </TouchableOpacity>
                 </View>
                 <Text style={[styles.text_footer, { marginTop: 35 }]}>Confirm Password</Text>
                 <View style={styles.action}>
-                    <FontAwesome name="lock" size={20} color="#05375a" />
+                    <FontAwesome name="lock" size={20} color="#1c8adb" />
                     <TextInput
                         placeholder="Confirm Password"
                         style={styles.textInput}
@@ -90,14 +89,13 @@ const SignUp = ({ navigation }) => {
                     />
                     <TouchableOpacity >
                         <Animatable.View animation="bounceIn">
-                            <Entypo name="eye-with-line" size={20} color="#05375a" />
-                            <Entypo name="eye" size={20} color="#05375a" />
+                            <Entypo name="eye" size={20} color="#1c8adb" />
                         </Animatable.View>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.button}>
-                    <LinearGradient style={styles.signIn} colors={['#3b5998', '#3b5998']}>
+                    <LinearGradient style={styles.signIn} colors={['#1c8adb', '#1c8adb']}>
                         <Text style={styles.textSign}>Sign Up</Text>
                     </LinearGradient>
                 </View>
@@ -119,7 +117,7 @@ export default SignUp;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#3b5998'
+        backgroundColor: '#1c8adb'
     },
     header: {
         flex: 1,
@@ -141,7 +139,7 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     text_footer: {
-        color: '#05375a',
+        color: '#1c8adb',
         fontSize: 18
     },
     action: {
@@ -162,7 +160,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         paddingLeft: 10,
-        color: '#05375a',
+        color: '#1c8adb',
     },
     errorMsg: {
         color: '#FF0000',
@@ -186,7 +184,7 @@ const styles = StyleSheet.create({
 
     },
     SignUp: {
-        backgroundColor: '#3b5998',
+        backgroundColor: '#1c8adb',
         borderColor: '#3b5998',
         marginTop: 15
     }

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, SafeAreaView } from 'react-native';
 
 import HeaderStyle from 'styles/HeaderStyle';
-import CourseImage from 'images/product.png';
+import CourseImage from 'images/cart.png';
 
 const Header = () => {
   return (
-    <View>
+    <SafeAreaView>
       <View
         style={{
           alignItems: 'center',
@@ -14,8 +14,8 @@ const Header = () => {
         }}>
         <Image source={CourseImage} />
       </View>
-      <Text style={HeaderStyle.ios}>Products List</Text>
-    </View>
+      <Text style={HeaderStyle.ios}>Cart</Text>
+    </SafeAreaView>
   )
 };
 

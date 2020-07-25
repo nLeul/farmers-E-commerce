@@ -39,7 +39,7 @@ const Home = ({ navigation: { navigate } }) => {
                 <View style={styles.button}>
                     <TouchableOpacity onPress={goToSignIn}>
                         <LinearGradient
-                            colors={['#3b5998', '#3b5998']}
+                            colors={['#1c8adb', '#1c8adb']}
                             style={styles.signIn}
                         >
                             <Text style={styles.textSign}>Sign In</Text>
@@ -53,7 +53,7 @@ const Home = ({ navigation: { navigate } }) => {
           <View style={styles.button}>
                     <TouchableOpacity onPress={goToSignup}>
                         <LinearGradient
-                            colors={['#3b5998', '#3b5998']}
+                            colors={['#1c8adb', '#1c8adb']}
                             style={styles.signIn}
                         >
                             <Text style={styles.textSign}>Sign Up</Text>
@@ -77,7 +77,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#3b5998'
+      backgroundColor: '#1c8adb'
     },
     header: {
       flex: 2,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
       height: height_logo
     },
     title: {
-      color: '#05375a',
+      color: '#1c8adb',
       fontSize: 30,
       fontWeight: 'bold'
     },

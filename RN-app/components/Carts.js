@@ -1,60 +1,96 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, TouchableHighlight, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableHighlight } from 'react-native';
+import Header from './Headers/Carts/Header';
 
 
 
-const Product = ({ data }) => {
+const cart = {
 
+
+    cart_items: [
+        {
+            prodId: 1,
+            quantity: 2,
+        }
+    ],
+    totalPrice: 4
+}
+
+const Carts = () => {
     const navigation = useNavigation();
+
+    const [cart, setCart] = useState(null);
+
+    // get cart and set to a variable
+    useEffect(() => {
+        const url = `https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/${customer_Id}`;
+        axios.patch(url).then(cart => {
+            const { data } = cart.data;
+            setCart(data);
+        });
+    }, []);
     const pay = () => {
+        alert("you have added i product")
+
+    };
+    const goToCart = () => {
+
         //  navigation.navigate('CART');
     };
 
-    const { _id, index, cart_items, totalPrice } = data;
-    // const { prodId, quantity } = cart_items;
+    const { _id, index, cart_items, totalPrice } = cart;
+
 
     return (
-        <View
-            style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7' }}
-        >
+        <SafeAreaView
+            style={{
+                flex: 1,
+                backgroundColor: '#FFFFFF',
+                paddingTop: Platform.OS === 'android' ? 30 : 0,
+                paddingBottom: 200
+            }}>
+
+            <View>
+                <Header />
+            </View >
             <View style={styles.row}>
-                <View>
-                    <Text>{prodId}</Text>
-                </View>
+                <Text>Cart</Text>
                 <View style={styles.course}>
                     <FlatList
                         data={cart_items}
-                        renderItem={(item) => (
+                        renderItem={({ item }) => (
                             <View>
-                                <Text>{item.prodId}</Text>
-                                <Text>{item.quantity}</Text>
-                            </View>)}
+                                <Text style={styles.lastname}>{item.prodId}</Text>
+                                <Text style={styles.lastname}  >{item.quantity}</Text>
+                            </View>
+                        )}
                     // keyExtractor={item => item._id}
 
                     />
-                    <Text style={styles.faculty}>{prodId} - {totalPrice}</Text>
+                    <Text style={styles.faculty}>{_id}</Text>
+                    <Text style={styles.faculty}>{totalPrice}</Text>
                 </View>
-                <View>
-                    <Text>{quantity}</Text>
-                </View>
-                <View>
-                    <Text>{totalPrice}</Text>
-                </View>
-
                 <View style={styles.edges}>
                     <TouchableHighlight
                         onPress={pay}
+                        style={styles.button}
+                        underlayColor="#5398DC">
+                        <Text style={styles.buttonText}>Add2Order</Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight
+                        onPress={goToCart}
                         style={styles.button}
                         underlayColor="#5398DC">
                         <Text style={styles.buttonText}>Pay</Text>
                     </TouchableHighlight>
                 </View>
             </View>
-        </View>
-    );
-};
+        </SafeAreaView>
 
+
+    );
+}
 const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
@@ -81,7 +117,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flex: 8,
     },
-    faculty: {
+    lastname: {
         color: 'grey',
     },
     button: {
@@ -108,5 +144,6 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Product;
 
+
+export default Carts;

@@ -1,8 +1,10 @@
 
 import 'react-native-gesture-handler';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { AsyncStorage } from 'react-native';
-import * as Location from 'expo-location'
+import AuthContext from '../AuthContext';
+
+
 import {
     View,
     Text,
@@ -19,6 +21,8 @@ import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 const SignIn = ({ navigation }) => {
+
+  const {a}=useContext(AuthContext);
 
     const goToFarmersList = () => {
         navigation.navigate("TABS");
@@ -38,7 +42,7 @@ const SignIn = ({ navigation }) => {
                 <View style={styles.action}>
                     <FontAwesome
                         name="user-circle-o"
-                        color="#05375a"
+                        color="#1c8adb"
                         size={20}
                     />
                     <TextInput
@@ -49,12 +53,12 @@ const SignIn = ({ navigation }) => {
                     />
 
                     <Animatable.View animation="bounceIn">
-                        <AntDesign name="checkcircle" size={20} color="#05375a" />
+                        <AntDesign name="checkcircle" size={20} color="#1c8adb" />
                     </Animatable.View>
                 </View>
-                <Text style={[styles.text_footer, { marginTop: 35 }]}>Password</Text>
+                <Text style={[styles.text_footer, { marginTop: 35 }]}>Password {a}</Text>
                 <View style={styles.action}>
-                    <FontAwesome name="lock" size={20} color="#05375a" />
+                    <FontAwesome name="lock" size={20} color="#1c8adb" />
                     <TextInput
                         placeholder="Enter Password"
                         // secureTextEntry={secureTextEntry}
@@ -64,14 +68,13 @@ const SignIn = ({ navigation }) => {
                     />
                     <TouchableOpacity >
                         <Animatable.View animation="bounceIn">
-                            <Entypo name="eye-with-line" size={20} color="#05375a" />
-                            <Entypo name="eye" size={20} color="#05375a" />
+                            <Entypo name="eye" size={20} color="#1c8adb" />
                         </Animatable.View>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.button}>
-                    <LinearGradient  style={styles.signIn} colors={['#3b5998', '#3b5998']}>
+                    <LinearGradient  style={styles.signIn} colors={['#1c8adb', '#1c8adb']}>
                         <Text onPress={goToFarmersList} style={styles.textSign} >Sign In</Text>
                     </LinearGradient>
                 </View>
@@ -93,7 +96,7 @@ export default SignIn;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#3b5998'
+        backgroundColor: '#1c8adb'
     },
     header: {
         flex: 1,
@@ -115,7 +118,7 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     text_footer: {
-        color: '#05375a',
+        color: '#1c8adb',
         fontSize: 18
     },
     action: {
@@ -136,7 +139,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         paddingLeft: 10,
-        color: '#05375a',
+        color: '#1c8adb',
     },
     errorMsg: {
         color: '#FF0000',
@@ -160,8 +163,8 @@ const styles = StyleSheet.create({
 
     },
     SignUp: {
-        backgroundColor: '#3b5998',
-        borderColor: '#3b5998',
+        backgroundColor: '#1c8adb',
+        borderColor: '#1c8adb',
         marginTop: 15
     },
     centeredView: {
