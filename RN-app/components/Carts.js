@@ -1,29 +1,38 @@
-import React, { useState, useEffect,useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableHighlight, Alert } from 'react-native';
 import Header from './Headers/Carts/Header';
 import StateContext from '../StateContext';
 
 
 
 const Carts = () => {
-
-    const { user } = useContext(StateContext);
     const navigation = useNavigation();
-    // const { customer_Id } = params;
+    const { user } = useContext(StateContext);
+    const customerId = user.user._id;
 
-    const [cart, setCart] = useState(null);
+
+
+    const [cart, setCart] = useState({});
 
     // get cart and set to a variable
     useEffect(() => {
-        const url = `https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/5f0b7fc96d7acaf714688b2f`;
+        const url = `http://localhost:3000/api/v1/users/${customerId}`;
+        (async () => {
+            try {
+                const user = await axios.get(url);
+                const cartData = user.data.data.cart;
+                // console.log({cartData})
+                setCart(cartData);
+            } catch (error) {
+                console.log(error)
+            }
+        })();
+    }, []);
+    
+    console.log({cart});
 
-        axios.patch(url).then(cart => {
-            const { data } = cart.data;
-            setCart(data);
-        });
-    },[]);
     const pay = () => {
         alert("you have added i product")
 
@@ -32,8 +41,11 @@ const Carts = () => {
 
         //  navigation.navigate('CART');
     };
+  
+        const { cart_items, totalQuantity, totalPrice } = cart;
+    
 
-    // const { cart_items, totalPrice } = cart;
+    // console.log(cart);
 
 
     return (
@@ -48,10 +60,10 @@ const Carts = () => {
             <View>
                 <Header />
             </View >
-            {/* <View style={styles.row}>
+        <View style={styles.row}>
                 <Text>Cart</Text>
                 <View style={styles.course}>
-                    <FlatList
+                     <FlatList
                         data={cart_items}
                         renderItem={({ item }) => (
                             <View>
@@ -61,24 +73,25 @@ const Carts = () => {
                         )}
                     // keyExtractor={item => item._id}
 
-                    />
+                    /> 
                     <Text style={styles.faculty}>{totalPrice}</Text>
-                </View> */}
-                <View style={styles.edges}>
-                    <TouchableHighlight
-                        onPress={pay}
-                        style={styles.button}
-                        underlayColor="#5398DC">
-                        <Text style={styles.buttonText}>Add2Order</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        onPress={goToCart}
-                        style={styles.button}
-                        underlayColor="#5398DC">
-                        <Text style={styles.buttonText}>Pay</Text>
-                    </TouchableHighlight>
-                </View>
-            {/* </View> */}
+                    <Text style={styles.faculty}>{totalQuantity}</Text>
+                </View> 
+            <View style={styles.edges}>
+                <TouchableHighlight
+                    onPress={pay}
+                    style={styles.button}
+                    underlayColor="#5398DC">
+                    <Text style={styles.buttonText}>Add2Order</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                    onPress={goToCart}
+                    style={styles.button}
+                    underlayColor="#5398DC">
+                    <Text style={styles.buttonText}>Pay</Text>
+                </TouchableHighlight>
+            </View>
+              </View> 
         </SafeAreaView>
 
 

@@ -19,7 +19,6 @@ import SignUp from 'components/Signup';
 import FarmersList from 'components/FarmersList';
 import Products from 'components/Products';
 import Carts from 'components/Carts';
-import EachProduct from 'components/EachProduct';
 import Logout from 'components/Logout';
 import StateContext from './StateContext';
 
@@ -28,20 +27,10 @@ const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
 
-
-
-function ProductStack() {
-  return (
-    <Stack.Navigator initialRouteName="ALL_FARMERS">
-      <Stack.Screen name="ALL_FARMERS" component={FarmersList} />
-      <Stack.Screen name="EACH_FARMERS_PRODUCT" component={EachProduct} />
-    </Stack.Navigator>
-  );
-}
 function TABS() {
   return (
 
-    <Tab.Navigator initialRouteName={ProductStack}
+    <Tab.Navigator initialRouteName={FarmersList}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === 'FARMERS') {

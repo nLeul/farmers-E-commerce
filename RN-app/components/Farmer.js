@@ -13,7 +13,7 @@ const Farmer = ({ data }) => {
         // alert("hi");
         // navigation.navigate('EACH_FARMERS_PRODUCT',{id:{productId}});
         navigation.navigate('PRODUCTS', { id: productId });
-        console.log("product id from the farmer", productId);
+    
     };
 
     const { _id, index, firstname, lastname, phone_number, reputation } = data;

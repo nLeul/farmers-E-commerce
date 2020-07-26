@@ -23,6 +23,15 @@ import { Entypo } from '@expo/vector-icons';
 
 const SignIn = ({ navigation }) => {
 
+
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+
+});
+
+const { email, password } = state;
+
     const {user,SignInHandler} = useContext(StateContext);
 
    

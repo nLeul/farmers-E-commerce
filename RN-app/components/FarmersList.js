@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect,useContext } from 'react';
 import axios from 'axios';
-import { View, Platform, SafeAreaView, FlatList } from 'react-native';
+import { View, Platform, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
 import Header from './Headers/Farmers/Header';
 import Farmer from './Farmer';
 import StateContext from '../StateContext';
@@ -33,15 +33,15 @@ const FarmersList = () => {
             }}>
             <View>
                 <Header />
-            </View >
-            <FlatList
-                data={farmers}
-                renderItem={({ item }) => <Farmer
-                    data={item}
-                />}
-                keyExtractor={item => item._id}
+            </View >{farmers.length>0?
+              (  <FlatList
+                    data={farmers}
+                    renderItem={({ item }) => <Farmer
+                        data={item}
+                    />}
+                    keyExtractor={item => item._id}
 
-            />
+                />):(<ActivityIndicator size="large"/>)}
 
         </SafeAreaView>
     );

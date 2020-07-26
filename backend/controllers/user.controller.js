@@ -2,7 +2,8 @@ const User = require('../models/user.model');
 const Product = require('../models/products.model');
 const Order = require('../models/order.model');
 const nodemailer = require('nodemailer');
-const {sendEmailToCustomer} =require('../services/sendEmail')
+const { sendEmailToCustomer } = require('../services/sendEmail');
+const { findByIdAndUpdate } = require('../models/user.model');
 
 
 exports.addProduct = async (req, res, next) => {
@@ -46,8 +47,8 @@ exports.addToCart = async (req, res, next) => {
         const foundIndex = foundUser.cart.cart_items.findIndex(product => product.prodId == prodId);
         if (foundIndex === -1) {
             foundUser.cart.cart_items.push({
-                prodId:prodId,
-                quantity:quantity,
+                prodId: prodId,
+                quantity: quantity,
             });
         }
         else {
@@ -236,18 +237,45 @@ exports.updateStatusToReadyandSendEmail = async (req, res, next) => {
         const { orderIdFromReady } = req.params;
         const { order_status, firstname, lastname, email } = req.body;
         const { pickup_date } = req.body;
- 
+
         const completedOrders = await Order.findByIdAndUpdate({ _id: orderIdFromReady }, { order_status: order_status, pickup_date: pickup_date }, { new: true });
         const user = await User.findOne({ _id: completedOrders.customer_id });
         console.log(user.email);
-    //    sendEmailToCustomer(user.email,pickup_date);
-      
-console.log("here")
-        return res.status(201).json({ status: true, data: completedOrders });
+        //    sendEmailToCustomer(user.email,pickup_date);
+
+        console.log("here")
+        return res.status(200).json({ status: true, data: completedOrders });
 
     }
     catch (err) {
         return res.status(400).json({ status: false, err: "Error Occured" });
+    }
+
+}
+
+exports.getUser = async (req, res, next) => {
+    console.log("inside a get user")
+    try {
+        const { userId } = req.params;
+        const user = await User.findById({ _id: userId });
+        return res.status(201).json({ status: true, data: user });
+    } catch (error) {
+        return res.status(400).json({ status: false, error: "Error Occured" });
+    }
+
+}
+
+exports.changeReputation = async (req, res, next) => {
+    console.log("reputation");
+    try {
+        const { farmerId, score } = req.params;
+        const newUser = await User.findById({ _id: farmerId })
+        const newrep = newUser.reputation += Number(score)
+  
+        const user = await User.findByIdAndUpdate({ _id: farmerId },{reputation:newrep},{new:true});
+        return res.status(200).json({ status: true, data: user });
+    } catch (error) {
+        return res.status(400).json({ status: false, error: "Error Occured" });
     }
 
 }
