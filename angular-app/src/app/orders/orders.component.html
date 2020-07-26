@@ -1,0 +1,158 @@
+<h1> Order List </h1>
+<mat-tab-group mat-align-tabs="start">
+    <mat-tab label="Pending">
+        <div class="table-list">
+            <mat-table [dataSource]="pending" class="mat-elevation-z8">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="customer_id">
+                    <mat-header-cell *matHeaderCellDef> Customer ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.customer_id|slice:15:24}} </mat-cell>
+                </ng-container>
+                <!-- Position Column -->
+                <ng-container matColumnDef="order_date">
+                    <mat-header-cell *matHeaderCellDef> Order Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_date|date}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="order_quantity">
+                    <mat-header-cell *matHeaderCellDef> Quantity</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_quantity}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="order_status">
+                    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_status}} </mat-cell>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="order_total">
+                    <mat-header-cell *matHeaderCellDef> Total Order </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_total}} </mat-cell>
+                </ng-container>
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="pickup_date">
+                    <mat-header-cell *matHeaderCellDef> Pickup Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.pickup_date|date}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button (click)="makeReady(element._id)" type="button" mat-stroked-button color="primary"> Ready & Email
+                        </button>
+                        <!-- <a mat-stroked-button color="primary"> Complete </a> -->
+                    </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+    </mat-tab>
+    <mat-tab label="Ready">
+
+        <div class="table-list">
+            <mat-table [dataSource]="ready" class="mat-elevation-z8">
+                <!-- Position Column -->
+                <ng-container matColumnDef="customer_id">
+                    <mat-header-cell *matHeaderCellDef> Customer ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.customer_id|slice:15:24}} </mat-cell>
+                </ng-container>
+                <!-- Position Column -->
+                <ng-container matColumnDef="order_date">
+                    <mat-header-cell *matHeaderCellDef> Order Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_date|date}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="order_quantity">
+                    <mat-header-cell *matHeaderCellDef> Quantity</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_quantity}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="order_status">
+                    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_status}} </mat-cell>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="order_total">
+                    <mat-header-cell *matHeaderCellDef> Total Order </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_total}} </mat-cell>
+                </ng-container>
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="pickup_date">
+                    <mat-header-cell *matHeaderCellDef> Pickup Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.pickup_date|date}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <!-- <button type="button" mat-stroked-button color="primary"> Make Ready
+                            </button> -->
+                        <a (click)="completeOrder(element._id)" mat-stroked-button color="primary"> Complete Order</a>
+                    </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+    </mat-tab>
+    <mat-tab label="Complete">
+        <div class="table-list">
+            <mat-table [dataSource]="complete" class="mat-elevation-z8">
+                <!-- Position Column -->
+                <ng-container matColumnDef="customer_id">
+                    <mat-header-cell *matHeaderCellDef> Customer ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.customer_id|slice:15:24}} </mat-cell>
+                </ng-container>
+                <!-- Position Column -->
+                <ng-container matColumnDef="order_date">
+                    <mat-header-cell *matHeaderCellDef> Order Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_date|date}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="order_quantity">
+                    <mat-header-cell *matHeaderCellDef> Quantity</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_quantity}} </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="order_status">
+                    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_status}} </mat-cell>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="order_total">
+                    <mat-header-cell *matHeaderCellDef> Total Order </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.order_total}} </mat-cell>
+                </ng-container>
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="pickup_date">
+                    <mat-header-cell *matHeaderCellDef> Pickup Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.pickup_date|date}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <!-- <button type="button" mat-stroked-button color="primary"> Make Ready
+                            </button> -->
+                        <a mat-stroked-button color="primary"> Details </a>
+                    </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+    </mat-tab>
+</mat-tab-group>

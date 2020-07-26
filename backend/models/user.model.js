@@ -20,7 +20,8 @@ const userSchema = new Schema({
         type: Number
     },
     reputation: {
-        type: String
+        type: Number,
+        default:0
     },
     products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product'}],
     orders: [{

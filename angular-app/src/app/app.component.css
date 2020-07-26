@@ -1,0 +1,13 @@
+.foota{
+     
+    position: fixed;
+    height: 80px;
+    margin-top: 10px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:rgb(103, 58, 182);
+    color: white;
+    text-align: center;
+
+}

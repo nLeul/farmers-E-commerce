@@ -1,0 +1,13 @@
+table {
+    width: 100%;
+  }
+.table-list{
+    margin-top: 80px;
+    margin-left: 90px;
+    margin-right: 90px;
+}
+h1{
+    text-align:center;
+    margin-top: 70px;
+    color: rgb(103, 58, 182);
+  }

@@ -1,1 +1,21 @@
+ <mat-toolbar color="primary" class="navbar">
+    <div> <a mat-button [routerLink]="['']"> Home</a> </div>
+    <span style="flex:1 1 auto;"></span>
+    <div>
+        <a *ngIf="!(getLoggedInUser() | async)" [routerLink]="['signin']" mat-button>Sign In </a>
+        <a *ngIf="!(getLoggedInUser() | async)" [routerLink]="['signup']" mat-button>Sign Up </a>
+        <a *ngIf="(getLoggedInUser() | async)" [routerLink]="['products']" mat-button>Products</a>
+        <a *ngIf="(getLoggedInUser() | async)" [routerLink]="['orders']" mat-button>Orders</a>
+        <a *ngIf="(getLoggedInUser() | async)" (click)="logout()" mat-button> Log out </a>
+
+
+    </div>
+
+</mat-toolbar>
 <router-outlet></router-outlet>
+<footer  class="foota">
+    <p>309 W Burlington Ave</p>
+    <p>Fairfield IA, 52556</p>
+  </footer>
+
+

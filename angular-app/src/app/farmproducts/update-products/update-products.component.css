@@ -1,0 +1,22 @@
+.addform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+
+  h1{
+    text-align:center;
+    margin-top: 70px;
+    color: rgb(103, 58, 182);
+  }
