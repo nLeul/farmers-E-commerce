@@ -66,5 +66,8 @@ export class FarmerApiService {
   completeOrder(orderId,data) {
     return this.http.patch<IProducts>(`http://localhost:3000/api/v1/users/farmers/${orderId}`,data)
   }
+  getAllUsers() {
+    return this.http.get<IProducts>('http://localhost:3000/api/v1/users/admin');
+  }
 
 }

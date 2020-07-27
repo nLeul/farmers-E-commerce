@@ -10,11 +10,12 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   user = null;
+  role = '';
   constructor(private farmServ: FarmerApiService, private router: Router) {
     //check logged in user
-    this.farmServ.getLoggedInUser().subscribe(U => {
+    this.farmServ.getLoggedInUser().subscribe(loggedInUser => {
       // check local storage
-      if (!U) {
+      if (!loggedInUser) {
         this.farmServ.setUser();
 
       }
@@ -26,6 +27,10 @@ export class AppComponent {
   }
 
   getLoggedInUser(): Observable<any> {
+this.farmServ.getLoggedInUser().subscribe(res => {
+      this.role=res.user.role;
+      console.log(this.role);
+})
     return this.farmServ.getLoggedInUser();
   }
   logout(): void {

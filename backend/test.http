@@ -30,7 +30,7 @@ Content-Type: application/json
 
 {
     "email":"lnecha@mum.edu",
-    "password":"1234"
+    "password":"12345"
   
 }
 
@@ -134,16 +134,38 @@ Content-Type: application/json
 
 ###
 
-#get all products by  prod id (Retrieve a product)
+#get user
 
 GET   http://localhost:3000/api/v1/users/5f0b90022964d7fae42917e0 HTTP/1.1 
 
 ###
 
 ###
-
+#farmers reputatiion
 PATCH   http://localhost:3000/api/v1/users/5f0b7fc96d7acaf714688b2f/reputation/-1
 Content-Type: application/json
+
+
+
+###
+#super user get all users and accounts 
+###
+
+GET     http://localhost:3000/api/v1/users/admin
+
+
+
+###
+#super user patch  passwords
+###
+
+PATCH      http://localhost:3000/api/v1/users/5f0b7fc96d7acaf714688b2f/admin
+Content-Type: application/json
+
+{
+    "password":"12345"
+}
+
 
 
 

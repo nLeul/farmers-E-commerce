@@ -20,7 +20,8 @@ userRouter.get('/farmers', userController.getAllFarmers);// customer browse all 
 // userRouter.get('/products', userController.getInventory);//customer  browse all products
 userRouter.patch('/:custId/products/:prodId/cart/:quantity', userController.addToCart);//add to cart
 userRouter.patch('/:custId/orders', userController.addToOrder);//add to order and clear cart
-userRouter.get('/:userId', userController.getUser);//get user by user id
+userRouter.get('/admin', userController.getAllAccounts);//get user by user id// for super user
+
 
 
 //order
@@ -32,4 +33,10 @@ userRouter.patch('/farmers/:orderIdFromReady', userController.updateStatusToRead
 
 //reputation
 userRouter.patch('/:farmerId/reputation/:score', userController.changeReputation);//farmer set order ready and pick up time and send email
+
+
+userRouter.patch('/:usrId/admin', userController.changePassword);//super user change passwords
+userRouter.get('/:userId', userController.getUser);//get user by user id
+
+
 module.exports = userRouter;

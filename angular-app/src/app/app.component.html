@@ -4,9 +4,12 @@
     <div>
         <a *ngIf="!(getLoggedInUser() | async)" [routerLink]="['signin']" mat-button>Sign In </a>
         <a *ngIf="!(getLoggedInUser() | async)" [routerLink]="['signup']" mat-button>Sign Up </a>
-        <a *ngIf="(getLoggedInUser() | async)" [routerLink]="['products']" mat-button>Products</a>
-        <a *ngIf="(getLoggedInUser() | async)" [routerLink]="['orders']" mat-button>Orders</a>
+        <a *ngIf="(getLoggedInUser() | async)&& (!(role=='superuser'))" [routerLink]="['products']" mat-button>Products</a>
+        <a *ngIf="(getLoggedInUser() | async)&& (!(role=='superuser'))" [routerLink]="['orders']" mat-button>Orders</a>
+        <a *ngIf="(getLoggedInUser() | async) &&(role=='superuser')" mat-button [routerLink]="['admin','accounts']"> Accounts </a>
+        <a *ngIf="(getLoggedInUser() | async) && (role=='superuser')" mat-button [routerLink]="['admin','transactions']"> Transactions </a>
         <a *ngIf="(getLoggedInUser() | async)" (click)="logout()" mat-button> Log out </a>
+
 
 
     </div>

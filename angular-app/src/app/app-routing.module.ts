@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'products', loadChildren: () => import('./farmproducts/farmproducts.module').then(m => m.FarmproductsModule) },
-  { path: 'orders', loadChildren: () => import('./orders/orders.module').then(o => o.OrdersModule) }
+  { path: 'orders', loadChildren: () => import('./orders/orders.module').then(o => o.OrdersModule) },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(a => a.AdminModule) }
 
 ];
 
