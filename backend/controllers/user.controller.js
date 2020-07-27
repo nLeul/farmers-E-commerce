@@ -41,7 +41,7 @@ exports.addProduct = async (req, res, next) => {
 exports.addToCart = async (req, res, next) => {
     console.log("addToCart");
     let { custId, prodId, quantity } = req.params
-  
+
     quantity = Number(quantity);
     const product = await Product.findById(prodId);
     const foundUser = await User.findById(custId);
@@ -127,7 +127,7 @@ exports.getInventory = async (req, res, next) => {
 }
 
 exports.getInventoryById = async (req, res, next) => {
-console.log("getInventoryById")
+    console.log("getInventoryById")
     const { productId } = req.params;
     try {
 
@@ -191,17 +191,17 @@ exports.getAllFarmers = async (req, res, next) => {
 }
 exports.filterOrders = async (req, res, next) => {
     console.log("filterOrders");
-    const { pending, ready, complete } = req.query;
+    const { pending, ready, complete, farmerId } = req.query;
     console.log("inside filter orders")
     try {
-        const allOrders = await Order.find();
-        const pending_order = await Order.find({ order_status: pending });
-        const ready_order = await Order.find({ order_status: ready });
-        const complete_order = await Order.find({ order_status: complete });
+        // const allOrders = await Order.find();
+        const pending_order = await Order.find({ customer_id: farmerId, order_status: pending });
+        const ready_order = await Order.find({ customer_id: farmerId, order_status: ready });
+        const complete_order = await Order.find({ customer_id: farmerId, order_status: complete });
 
         return res.status(200).json({
             succes: true, data: {
-                allOrders:allOrders,
+                // allOrders: allOrders,
                 pending: pending_order,
                 ready: ready_order,
                 complete: complete_order
@@ -251,7 +251,7 @@ exports.updateStatusToReadyandSendEmail = async (req, res, next) => {
         const completedOrders = await Order.findByIdAndUpdate({ _id: orderIdFromReady }, { order_status: order_status, pickup_date: pickup_date }, { new: true });
         const user = await User.findOne({ _id: completedOrders.customer_id });
 
-        //    sendEmailToCustomer(user.email,pickup_date);
+           sendEmailToCustomer(user.email,pickup_date);
 
 
         return res.status(200).json({ status: true, data: completedOrders });
@@ -306,19 +306,23 @@ exports.changePassword = async (req, res, next) => {
         const { usrId } = req.params;
         const salt = await bcrypt.genSalt(10);
         const password = await bcrypt.hash(req.body.password, salt);
-        const userPassword = await User.findByIdAndUpdate({ _id: usrId },{password:password},{new:true});
+        const userPassword = await User.findByIdAndUpdate({ _id: usrId }, { password: password }, { new: true });
         return res.status(200).json({ status: true, data: userPassword });
     } catch (error) {
         return res.status(400).json({ status: false, error: "Error Occured" });
     }
 
 }
-// exports.getRole= async (req, res, next) => {
-//     console.log("get role");
-//     try {
-//         return res.status(200).json({ status: true, data: userPassword });
-//     } catch (error) {
-//         return res.status(400).json({ status: false, error: "Error Occured" });
-//     }
+exports.getAllOrders = async (req, res, next) => {
+    console.log("getAllOrders");
+    try {
 
-// }
+        const { userid } = req.query;
+        const UserRes = await User.findById({ _id: userid })
+        console.log(UserRes.orders);
+        return res.status(200).json({ status: true, data: UserRes.orders });
+    } catch (error) {
+        return res.status(400).json({ status: false, error: "Error Occured" });
+    }
+
+}

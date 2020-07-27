@@ -24,13 +24,13 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    this.farmServ.getLoggedInUser().subscribe(res => {
+      this.role = res.user.role;
+    })
   }
 
   getLoggedInUser(): Observable<any> {
-this.farmServ.getLoggedInUser().subscribe(res => {
-      this.role=res.user.role;
-      console.log(this.role);
-})
+    
     return this.farmServ.getLoggedInUser();
   }
   logout(): void {

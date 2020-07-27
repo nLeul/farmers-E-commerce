@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LogoutComponent } from './components/auth/logout/logout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -19,6 +20,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FarmInterceptor } from './farm.interceptor';
+import { ErrorComponent } from './error/error.component';
 
 
 
@@ -28,7 +30,8 @@ import { FarmInterceptor } from './farm.interceptor';
     SignupComponent,
     LoginComponent,
     HomeComponent,
-    LogoutComponent
+    LogoutComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { FarmInterceptor } from './farm.interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     MatInputModule,
+    MatProgressBarModule,
 
 
     MatCheckboxModule,

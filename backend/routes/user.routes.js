@@ -25,6 +25,7 @@ userRouter.get('/admin', userController.getAllAccounts);//get user by user id// 
 
 
 //order
+userRouter.get('/orders/transactions', userController.getAllOrders);//get all transactions for superuser
 userRouter.get('/orders', userController.filterOrders);//Farmers  see all orders and filter them by status.
 userRouter.get('/:customerId/orders', userController.getOrderHistory);//Customers can see their orders history and filter by date and status.
 userRouter.patch('/farmers/', userController.updateStatusToComplete);//order is picked up, farmers updates order status to ‘complete’.
@@ -37,6 +38,7 @@ userRouter.patch('/:farmerId/reputation/:score', userController.changeReputation
 
 userRouter.patch('/:usrId/admin', userController.changePassword);//super user change passwords
 userRouter.get('/:userId', userController.getUser);//get user by user id
+
 
 
 module.exports = userRouter;

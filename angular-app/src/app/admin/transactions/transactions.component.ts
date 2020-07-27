@@ -13,15 +13,13 @@ export class TransactionsComponent implements OnInit {
   subscription$: Subscription;
 
   constructor(private farmService: FarmerApiService, private router: Router, private route: ActivatedRoute) {
-    this.subscription$ = this.farmService.getOrdersByStatus("pending", "ready", "complete").subscribe(orders => {
-      console.log({ orders });
-      this.transactions = orders.data;
-      console.log(this.transactions);
-})
+    
+//     this.subscription$ = this.farmService.getOrdersByStatus("pending", "ready", "complete").subscribe(orders => {
+//       this.transactions = orders.data;
+// })
    }
 
   ngOnInit(): void {
-    console.log(this.transactions);
   }
   ngOnDestroy() {
     this.subscription$.unsubscribe();

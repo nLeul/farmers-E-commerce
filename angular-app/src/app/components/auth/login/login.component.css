@@ -22,4 +22,5 @@
     margin-top: 70px;
     color: rgb(103, 58, 182);
   }
+  md-error:not(:first-of-type) { display: none; }
  

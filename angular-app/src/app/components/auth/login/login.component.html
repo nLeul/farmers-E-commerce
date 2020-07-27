@@ -4,10 +4,13 @@
     <mat-form-field class="full-width">
       <mat-label>Email</mat-label>
       <input type="text" matInput placeholder="Email" formControlName="email">
+      <mat-error *ngIf="loginForm.controls['email'].hasError('required')">Email is required </mat-error>
+      <mat-error *ngIf="loginForm.controls['email'].hasError('email')">Enter correct email format</mat-error>
     </mat-form-field>
     <mat-form-field class="full-width" >
       <mat-label>Password</mat-label>
       <input type="password" matInput placeholder="Password" formControlName="password">
+      <mat-error *ngIf="loginForm.controls['password'].hasError('required')">password is required </mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary">Login</button>
   </form>

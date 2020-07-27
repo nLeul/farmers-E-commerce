@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AsyncStorage, Alert } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -65,45 +65,18 @@ function TABS() {
 export default function App() {
 
   const [user, setUser] = useState(null);
-
-  const url = 'http://localhost:3000/api/v1/users/signin';
-
-  const SignInHandler = async () => {
+  const SignInHandler = async (user) => {
     try {
 
-
-      const loginRes = await axios.post(url, {
-        "email": "lnecha@mum.edu",
-        "password": "1234"
-
-      });
-      let userState = loginRes.data.success
-      if (userState) {
-        setUser(loginRes.data)
-        await AsyncStorage.setItem("user", JSON.stringify(loginRes.data));
-        return true;
-      } else {
-        return false;
-      }
-
+      setUser(user);
+      await AsyncStorage.setItem("user", JSON.stringify(loginRes.data));
     }
     catch (err) {
-
-      // Alert.alert(err.message)
-      return false
+      console.log(err)
     }
 
   }
 
-
-  useEffect(() => {
-    (async () => {
-      const storedUser = await AsyncStorage.getItem("user");
-
-      setUser(JSON.parse(storedUser));
-    })();
-
-  }, []);
   return (
     <StateContext.Provider value={{ user, SignInHandler }}>
       <NavigationContainer>

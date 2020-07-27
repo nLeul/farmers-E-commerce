@@ -36,14 +36,14 @@ Content-Type: application/json
 
 ########
 #add to cart
-PATCH  http://localhost:3000/api/v1/users/5f0b90022964d7fae42917e0/products/5f0b977700e3c90159b91fd4/cart/1 HTTP/1.1
+PATCH  http://localhost:3000/api/v1/users/5f0b7fc96d7acaf714688b2f/products/5f1e46c68844961f7da43313/cart/1 HTTP/1.1
 Content-Type: application/json
 
 ###
 
 
 #add to order and clear cart
-PATCH  http://localhost:3000/api/v1/users/5f0de392c610ee2328341e0c/orders HTTP/1.1
+PATCH  http://localhost:3000/api/v1/users/5f0b7fc96d7acaf714688b2f/orders HTTP/1.1
 
 
 ###
@@ -93,7 +93,7 @@ GET     http://localhost:3000/api/v1/users/farmers HTTP/1.1
 
 
 #filter orders by status 
-GET      http://localhost:3000/api/v1/users/orders/?pending=pending&ready=ready&complete=complete HTTP/1.1 
+GET      http://localhost:3000/api/v1/users/orders/?pending=pending&ready=ready&complete=complete&farmerId=5f0b7fc96d7acaf714688b2f HTTP/1.1 
 
 
 ###
@@ -165,8 +165,11 @@ Content-Type: application/json
 {
     "password":"12345"
 }
+###
+###
+#super user get all transaction orders
+###
 
-
-
+GET       http://localhost:3000/api/v1/users/orders/transactions?userid=5f0b7fc96d7acaf714688b2f
 
 ###

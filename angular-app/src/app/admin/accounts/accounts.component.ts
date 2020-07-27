@@ -22,6 +22,9 @@ export class AccountsComponent implements OnInit {
   ngOnInit(): void {
   
   }
+  onSubmit() {
+this.farmService.register
+}
   ngOnDestroy() {
     this.subscription$.unsubscribe();
 }

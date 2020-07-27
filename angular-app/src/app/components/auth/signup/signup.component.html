@@ -2,35 +2,37 @@
     <mat-card-header class="header">
         <mat-card-title>Sign Up</mat-card-title>
       </mat-card-header>
-    <form [formGroup]="signUpForm" class="form">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="form">
         <mat-form-field class="full-width">
             <mat-label>First Name</mat-label>
             <input type="text" matInput formControlName="firstname" placeholder="leul">
+            <mat-error *ngIf="checkError('firstname', 'required')">First Name is required</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
             <mat-label>Last Name</mat-label>
             <input type="text" matInput formControlName="lastname" placeholder="necha">
+            <mat-error *ngIf="checkError('lastname', 'required')">Last Name is required</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
             <mat-label>Email</mat-label>
             <input type="text" matInput formControlName="email" placeholder="Ex. lnecha@mum.com">
+            <mat-error *ngIf="checkError('email', 'required')">Email is required</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
-            <input type="text" matInput formControlName="password" placeholder="******">
+            <input type="password" matInput formControlName="password" placeholder="******">
+            <mat-error *ngIf="checkError('password', 'required')">Password is required</mat-error>
         </mat-form-field>
         <mat-form-field class=" full-width">
             <mat-label>Re-enter Password</mat-label>
-            <input type="text" matInput formControlName="password" placeholder="******">
-        </mat-form-field>
-        <mat-form-field class="full-width">
-            <mat-label>Role</mat-label>
-            <input type="text" matInput formControlName="role" placeholder="farmer">
+            <input type="password" matInput formControlName="password" placeholder="******">
+            <mat-error *ngIf="checkError('password', 'required')">Password is required</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
             <mat-label>Phone Number</mat-label>
             <input type="number" matInput formControlName="phone_number" placeholder="farmer">
+            <mat-error *ngIf="checkError('phone_number', 'required')">Phone Number is required</mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary">Register</button>
+        <button mat-raised-button color="primary" >Register</button>
     </form>
 </div>
