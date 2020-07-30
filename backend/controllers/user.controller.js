@@ -314,13 +314,12 @@ exports.changePassword = async (req, res, next) => {
 
 }
 exports.getAllOrders = async (req, res, next) => {
-    console.log("getAllOrders");
+    console.log("AllOrders");
     try {
-
-        const { userid } = req.query;
-        const UserRes = await User.findById({ _id: userid })
-        console.log(UserRes.orders);
-        return res.status(200).json({ status: true, data: UserRes.orders });
+        console.log("try")
+        const orders = await Order.find({_id:"5f20515eca0f567dd3640b82"})
+        console.log(orders);
+        return res.status(200).json({ status: true, data: orders});
     } catch (error) {
         return res.status(400).json({ status: false, error: "Error Occured" });
     }

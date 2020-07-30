@@ -10,8 +10,6 @@ const Farmer = ({ data }) => {
     const navigation = useNavigation();
 
     const seeFarmerProducts = (productId) => {
-        // alert("hi");
-        // navigation.navigate('EACH_FARMERS_PRODUCT',{id:{productId}});
         navigation.navigate('PRODUCTS', { id: productId });
     
     };

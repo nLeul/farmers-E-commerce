@@ -9,22 +9,27 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
-  accounts;
+
+  accounts: any;
+  userId: any;
   subscription$: Subscription;
+
+  displayedColumns = ['_id', 'firstname', 'lastname', 'role', 'phone_number', 'Action'];
+
   constructor(private farmService: FarmerApiService, private router: Router, private route: ActivatedRoute) { 
-    this.subscription$ = this.farmService.getAllUsers().subscribe(accounts => {
-  
-      this.accounts = accounts.data;
-   
+    this.subscription$ = this.farmService.getAllUsers().subscribe(orders => {
+      this.accounts = orders.data;
     })
+    
+
+  }
+  changePassword(id){
+// this.subscription$=this.farmService.ch
+    this.router.navigate(['admin','changePassword'],{queryParams:{accountId:id}});
   }
 
   ngOnInit(): void {
-  
   }
-  onSubmit() {
-this.farmService.register
-}
   ngOnDestroy() {
     this.subscription$.unsubscribe();
 }

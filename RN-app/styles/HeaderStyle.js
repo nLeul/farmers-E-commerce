@@ -6,13 +6,13 @@ export default StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
     color: '#0066CC',
-    fontWeight: '300',
+    fontWeight:'bold',
   },
   ios: {
     paddingTop: 30,
     fontSize: 26,
     textAlign: 'center',
     color: '#0066CC',
-    fontWeight: '200',
+    fontWeight: 'bold',
   },
 });

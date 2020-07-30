@@ -3,7 +3,7 @@ import React from 'react';
 import { Text, View, Image } from 'react-native';
 
 import HeaderStyle from 'styles/HeaderStyle';
-import CourseImage from 'images/cart.png';
+import cartImage from 'images/cart.png';
 
 const Header = () => {
   return (
@@ -13,7 +13,7 @@ const Header = () => {
           alignItems: 'center',
           marginTop: 10,
         }}>
-        <Image source={CourseImage} />
+        <Image source={cartImage} />
       </View>
       <Text style={HeaderStyle.android}>Cart</Text>
     </View>

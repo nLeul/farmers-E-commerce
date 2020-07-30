@@ -1,5 +1,6 @@
 
 import 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
@@ -22,21 +23,25 @@ import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
-const SignIn = ({ navigation }) => {
+const SignIn = () => {
+
+    const navigation = useNavigation();
 
 
   const [state, setState] = useState({
-    email: '',
-    password: '',
+    email: 'leulnecha@gmail.com',
+    password: '1234',
 
 });
 
-// const { email, password } = state;
+    const goToSignup = () => {
+        navigation.navigate('SIGNUP')
+}
 
 
     const {user,SignInHandler} = useContext(StateContext);
 
-     const url = 'http://localhost:3000/api/v1/users/signin';
+     const url = 'https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/signin';
  
     const goToFarmersList = async () => {
         try {
@@ -83,6 +88,7 @@ const SignIn = ({ navigation }) => {
                         placeholder="Enter Password"
                         style={styles.textInput}
                         autoCapitalize="none"
+                        secureTextEntry={true}
                         value={state.password}
                         onChangeText={password => setState({...state,password:password})}
                     />
@@ -101,7 +107,7 @@ const SignIn = ({ navigation }) => {
                 <View style={styles.button, { marginTop: 30 }}>
 
                     <TouchableOpacity style={[styles.signIn, styles.SignUp]}>
-                        <Text style={styles.textSign} >Sign Up</Text>
+                        <Text onPress={goToSignup} style={styles.textSign} >Sign Up</Text>
                     </TouchableOpacity>
 
                 </View>

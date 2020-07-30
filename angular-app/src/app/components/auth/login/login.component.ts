@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   user = null;
   constructor(private formBuilder: FormBuilder, private router: Router, private farmServ: FarmerApiService) {
 
-    console.log("constructor")
   }
 
   ngOnInit(): void {

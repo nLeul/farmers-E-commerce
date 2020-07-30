@@ -72,5 +72,12 @@ export class FarmerApiService {
   getAllUsers() {
     return this.http.get<IProducts>('https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/admin');
   }
+  getTransactions() {
+    return this.http.get<IProducts>(`https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/orders/transactions`);
+  }
+  changePassword(usrId,newPass) {
+    return this.http.patch(`https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/${usrId}/admin`,newPass);
+    
+  }
 
 }

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableHighlight, Alert } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableHighlight, Alert,ScrollView } from 'react-native';
 import Header from './Headers/Carts/Header';
 import StateContext from '../StateContext';
+
 
 
 
@@ -18,23 +19,24 @@ const Carts = () => {
 
     // get cart and set to a variable
     useEffect(() => {
-        const url = `http://localhost:3000/api/v1/users/${customerId}`;
+     
+        const url = `https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/${customerId}`;
         (async () => {
             try {
                 const user = await axios.get(url);
-                const cartData = user.data.data.cart;
-                // console.log({cartData})
+               const cartData = user.data.data.cart;
+                 console.log({cartData})
                 setCart(cartData);
             } catch (error) {
                 console.log(error)
             }
         })();
-    }, []);
+    }, [customerId]);
     
     console.log({cart});
 
     const pay = () => {
-        alert("you have added i product")
+       Alert.alert("you have added 1 product")
 
     };
     const goToCart = () => {
@@ -45,54 +47,47 @@ const Carts = () => {
         const { cart_items, totalQuantity, totalPrice } = cart;
     
 
-    // console.log(cart);
+ 
 
 
     return (
-        <SafeAreaView
-            style={{
-                flex: 1,
-                backgroundColor: '#FFFFFF',
-                paddingTop: Platform.OS === 'android' ? 30 : 0,
-                paddingBottom: 200
-            }}>
+        <View>
 
             <View>
                 <Header />
             </View >
-        <View style={styles.row}>
-                <Text>Cart</Text>
-                <View style={styles.course}>
+        <ScrollView
+
+            style={styles.card}
+        >
+
+           
+        <View >
+                <View >
                      <FlatList
                         data={cart_items}
                         renderItem={({ item }) => (
                             <View>
-                                <Text style={styles.lastname}>{item.prodId}</Text>
-                                <Text style={styles.lastname}  >{item.quantity}</Text>
+                                <Text style={styles.name}>PRODUCT ID: Id {item.prodId.substring(17)}</Text>
+                                <Text style={styles.name}  >QTY: {item.quantity}</Text>
                             </View>
                         )}
                     // keyExtractor={item => item._id}
 
                     /> 
-                    <Text style={styles.faculty}>{totalPrice}</Text>
-                    <Text style={styles.faculty}>{totalQuantity}</Text>
+                    <Text style={styles.name}>TOTAL PRICE-------------{totalPrice}</Text>
+                    <Text style={styles.name} >TOTAL QTY------------{totalQuantity}</Text>
                 </View> 
-            <View style={styles.edges}>
-                <TouchableHighlight
-                    onPress={pay}
-                    style={styles.button}
-                    underlayColor="#5398DC">
-                    <Text style={styles.buttonText}>Add2Order</Text>
-                </TouchableHighlight>
-                <TouchableHighlight
+            
+            </View> 
+            <TouchableHighlight
                     onPress={goToCart}
                     style={styles.button}
                     underlayColor="#5398DC">
                     <Text style={styles.buttonText}>Pay</Text>
                 </TouchableHighlight>
+            </ScrollView>
             </View>
-              </View> 
-        </SafeAreaView>
 
 
     );
@@ -104,13 +99,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: '#ddd',
     },
-    edges: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 5,
-        minWidth: 50,
-    },
     stars: {
         flex: 1,
         flexDirection: 'row',
@@ -119,14 +107,14 @@ const styles = StyleSheet.create({
         padding: 5,
         minWidth: 50,
     },
-    course: {
-        flexDirection: 'column',
-        flex: 8,
-    },
-    lastname: {
+   name: {
         color: 'grey',
+        padding:10
     },
     button: {
+        marginTop:15,
+        marginLeft:110,
+        width:200,
         borderWidth: 1,
         borderColor: '#0066CC',
         borderRadius: 14,
@@ -136,7 +124,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#0066CC',
-        fontSize: 12,
+        fontSize: 40,
         textAlign: 'center',
     },
     info: {
@@ -148,6 +136,21 @@ const styles = StyleSheet.create({
         borderColor: '#ddd',
         borderRadius: 4,
     },
+    card: {
+        height: 400,
+        // width:200,
+        backgroundColor: "white",
+        borderRadius: 16,
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        shadowColor: "black",
+        shadowOffset: {
+          height: 0,
+          width: 0,
+        },
+        elevation: 1,
+      },
+    
 });
 
 

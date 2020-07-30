@@ -10,9 +10,8 @@ import Product from './Product';
 
 const Products = ({ route: { params } }) => {
     const navigation = useNavigation();
-    const goToCart = () => {//this is farmers_id---wrong
+    const goToCart = () => {//this is farmers_id
         // redirect to Cart where he can pay
-        // http://localhost:3000/api/v1/users/5f0b7fc96d7acaf714688b2f/products/5f1b7602f80986000a49085f/cart/1
         navigation.navigate('CART');
     };
 
@@ -20,8 +19,6 @@ const Products = ({ route: { params } }) => {
     const { id } = params;
     // get products and set to a variable
     useEffect(() => {
-        // const url = `http://localhost:3000/api/v1/users/products?farmerId=${id}`;
-        // console.log(url);
         const productsurl = `https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/products?farmerId=${id}`
         axios.get(productsurl).then(products => {
             const { data } = products.data;
@@ -71,7 +68,11 @@ const styles = StyleSheet.create({
         color: '#0066CC',
         fontSize: 12,
         textAlign: 'center',
-    }
+    },
+    fixToText: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      },
 })
     
 

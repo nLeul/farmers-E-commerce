@@ -9,7 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Entypo } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons,MaterialIcons } from '@expo/vector-icons';
 
 
 
@@ -40,8 +40,9 @@ function TABS() {
           }
           else if (route.name === 'CART') {
             return <Entypo name="shopping-cart" size={24} color="black" />
-          } else if (route.name === 'LOGOUT') {
-            return <MaterialCommunityIcons name="logout" size={24} color="black" />
+          }
+          else if (route.name === 'LOGOUT') {
+            return <Entypo name="log-out" size={24} color="black" />
           }
 
 

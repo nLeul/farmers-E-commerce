@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, ScrollView,Image, ActivityIndicator, Alert } from 'react-native';
 import StateContext from '../StateContext';
 
 
@@ -17,15 +17,14 @@ const Product = ({ data }) => {
 
     const addToCart = async (productId) => {
         try {
-            const url = `http://localhost:3000/api/v1/users/${customerId}/products/${productId}/cart/1`
+            const url = `https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/${customerId}/products/${productId}/cart/1`
             const cartRes = await axios.patch(url);
-            console.log("patched res", cartRes);
+            Alert.alert("you have added one product");
         }
         catch (err) {
             console.log(err);
         }
 
-        // add one product to cart
     };
 
 
@@ -38,25 +37,30 @@ const Product = ({ data }) => {
                 style={{ backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7' }}
             >
 
-                <View style={styles.row}>
+   <View style={styles.row}>
                     {/* <View>
                     <Text>{_id}</Text>
                 </View> */}
-                    <View style={styles.course}>
+                    <View style={styles.cover}>
                         <Text>{productName}</Text>
                         <Text style={styles.faculty}>{productName} - {productPrice}</Text>
                     </View>
-                    <View>
+                    <View style={styles.cover}>
                         <Text>{quantity}</Text>
                     </View>
                     <View>
-                        <Text>{productPrice}</Text>
+                        <Text></Text>
                     </View>
                     <View>
                         <Text>{productDescription}</Text>
                     </View>
                     <View>
-                        <Text>{productImage}</Text>
+                        <Image
+                            style={styles.logo}
+                            source={{
+                                uri:productImage,
+                            }}
+                        />
                     </View>
 
                     <View style={styles.edges}>
@@ -71,10 +75,22 @@ const Product = ({ data }) => {
                 </View>
             </View>
         </ScrollView>
+  
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        paddingTop: 50,
+      },
+      tinyLogo: {
+        width: 50,
+        height: 50,
+      },
+      logo: {
+        width: 66,
+        height: 58,
+      },
     row: {
         flexDirection: 'row',
         padding: 20,
@@ -96,7 +112,7 @@ const styles = StyleSheet.create({
         padding: 5,
         minWidth: 50,
     },
-    course: {
+    cover: {
         flexDirection: 'column',
         flex: 8,
     },
