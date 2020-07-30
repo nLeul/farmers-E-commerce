@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LogoutComponent } from './components/auth/logout/logout.component';
 import { of } from 'rxjs';
 import { HomeComponent } from './components/home/home.component';
+import { ErrorComponent } from './error/error.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,7 +14,9 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'products', loadChildren: () => import('./farmproducts/farmproducts.module').then(m => m.FarmproductsModule) },
-  { path: 'orders', loadChildren: () => import('./orders/orders.module').then(o => o.OrdersModule) }
+  { path: 'orders', loadChildren: () => import('./orders/orders.module').then(o => o.OrdersModule) },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(a => a.AdminModule) },
+  { path: 'error', component: ErrorComponent }
 
 ];
 

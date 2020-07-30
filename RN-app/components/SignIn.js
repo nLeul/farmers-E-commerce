@@ -1,6 +1,8 @@
 
 import 'react-native-gesture-handler';
-import React, { useState, useEffect,useContext } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 import StateContext from '../StateContext';
 
@@ -21,28 +23,33 @@ import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
-const SignIn = ({ navigation }) => {
+const SignIn = () => {
+
+    const navigation = useNavigation();
 
 
   const [state, setState] = useState({
-    email: '',
-    password: '',
+    email: 'leulnecha@gmail.com',
+    password: '1234',
 
 });
 
-const { email, password } = state;
+    const goToSignup = () => {
+        navigation.navigate('SIGNUP')
+}
+
 
     const {user,SignInHandler} = useContext(StateContext);
 
-   
+     const url = 'https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/signin';
  
     const goToFarmersList = async () => {
-        let result = await SignInHandler();
-        if (result) {
-            navigation.navigate("TABS");
-        } else {
-            Alert.alert("Sign in Failed");
-            
+        try {
+            const loginRes = await axios.post(url, state);
+                SignInHandler(loginRes.data);
+                navigation.navigate("TABS");
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -66,7 +73,8 @@ const { email, password } = state;
                         placeholder="Enter Email"
                         style={styles.textInput}
                         autoCapitalize="none"
-                    // onChangeText={email => emailHandler(email)}
+                        value={state.email}
+                    onChangeText={email => setState({...state,email:email})}
                     />
 
                     <Animatable.View animation="bounceIn">
@@ -78,10 +86,11 @@ const { email, password } = state;
                     <FontAwesome name="lock" size={20} color="#1c8adb" />
                     <TextInput
                         placeholder="Enter Password"
-                        // secureTextEntry={secureTextEntry}
                         style={styles.textInput}
                         autoCapitalize="none"
-                    // onChangeText={pass => passwordHandler(pass)}
+                        secureTextEntry={true}
+                        value={state.password}
+                        onChangeText={password => setState({...state,password:password})}
                     />
                     <TouchableOpacity >
                         <Animatable.View animation="bounceIn">
@@ -98,7 +107,7 @@ const { email, password } = state;
                 <View style={styles.button, { marginTop: 30 }}>
 
                     <TouchableOpacity style={[styles.signIn, styles.SignUp]}>
-                        <Text style={styles.textSign} >Sign Up</Text>
+                        <Text onPress={goToSignup} style={styles.textSign} >Sign Up</Text>
                     </TouchableOpacity>
 
                 </View>

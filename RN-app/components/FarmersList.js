@@ -15,10 +15,10 @@ const FarmersList = () => {
    
     // get farmers and set to a variable
     useEffect(() => {
-        // const url = 'http://localhost:3000/api/v1/users/farmers';
         const url = 'https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/farmers';
         axios.get(url).then(farmers => {
             const { data } = farmers.data;
+            console.log("my data",data);
             setFarmers(data);
         });
     }, []);

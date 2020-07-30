@@ -56,15 +56,28 @@ export class FarmerApiService {
     localStorage.removeItem("user");
 
   }
+  register(data) {
+    return this.http.post<IProducts>(`https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/signup`,data);
+  }
 
-  getOrdersByStatus(pending,ready,complete) {
-    return this.http.get<IProducts>(`http://localhost:3000/api/v1/users/orders?pending=${pending}&ready=${ready}&complete=${complete} ` )
+  getOrdersByStatus(pending,ready,complete,farmerId) {
+    return this.http.get<IProducts>(`https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/orders?pending=${pending}&ready=${ready}&complete=${complete}&farmerId=${farmerId} ` )
   }
   readyOrder(orderId,data) {
-    return this.http.patch<IProducts>(`http://localhost:3000/api/v1/users/farmers/${orderId}`,data)
+    return this.http.patch<IProducts>(`https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/farmers/${orderId}`,data)
   }
   completeOrder(orderId,data) {
-    return this.http.patch<IProducts>(`http://localhost:3000/api/v1/users/farmers/${orderId}`,data)
+    return this.http.patch<IProducts>(`https://farmers-shop-284315.uc.r.appspot.comapi/v1/users/farmers/${orderId}`,data)
+  }
+  getAllUsers() {
+    return this.http.get<IProducts>('https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/admin');
+  }
+  getTransactions() {
+    return this.http.get<IProducts>(`https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/orders/transactions`);
+  }
+  changePassword(usrId,newPass) {
+    return this.http.patch(`https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/${usrId}/admin`,newPass);
+    
   }
 
 }

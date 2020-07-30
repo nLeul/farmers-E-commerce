@@ -10,7 +10,7 @@ exports.login = async (req, res, next) => {
     const user = await User.findOne({ email });
     
     if (!email || !password) {
-        res.status(400).json({
+        res.status(401).json({
             success: false,
             errMessage: "Please provide an email,password and role",
         });
@@ -18,7 +18,7 @@ exports.login = async (req, res, next) => {
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        res.status(400).json({ success: false, errMessage: "Invalid Username and Password" });
+        res.status(401).json({ success: false, errMessage: "Invalid Username and Password" });
         return;
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {

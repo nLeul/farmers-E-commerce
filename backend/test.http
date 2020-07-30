@@ -3,7 +3,7 @@ POST http://localhost:3000/api/v1/users/products HTTP/1.1
 Content-Type: application/json
 
 {
-    "farmer_id":"5f0b7fc96d7acaf714688b2f",
+    "farmer_id":"5f1f51021fb358000b4d1679",
     "productName": "Eggs",
     "quantity":10,
     "productPrice":2 ,
@@ -16,15 +16,24 @@ POST http://localhost:3000/api/v1/users/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "firstname":"zereab",
+    "firstname":"leul",
     "lastname":"necha",
-    "email":"znecha@mum.edu",
+    "email":"leulnecha@gmail.com",
      "password":"1234",
-     "role":"farmer",
+     "role":"customer",
      "phone_number": "7204515972"
 }
 
-###sign in
+###sign in customer
+POST http://localhost:3000/api/v1/users/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"leulnecha@gmail.com",
+    "password":"1234"
+  
+}
+###sign in farmer
 POST http://localhost:3000/api/v1/users/signin HTTP/1.1
 Content-Type: application/json
 
@@ -36,14 +45,14 @@ Content-Type: application/json
 
 ########
 #add to cart
-PATCH  http://localhost:3000/api/v1/users/5f0b90022964d7fae42917e0/products/5f0b977700e3c90159b91fd4/cart/1 HTTP/1.1
+PATCH  http://localhost:3000/api/v1/users/5f1f54880176e766637a0d91/products/5f1f51841fb358000b4d167a/cart/1 HTTP/1.1
 Content-Type: application/json
 
 ###
 
 
 #add to order and clear cart
-PATCH  http://localhost:3000/api/v1/users/5f0de392c610ee2328341e0c/orders HTTP/1.1
+PATCH  http://localhost:3000/api/v1/users/5f1f54880176e766637a0d91/orders HTTP/1.1
 
 
 ###
@@ -93,7 +102,7 @@ GET     http://localhost:3000/api/v1/users/farmers HTTP/1.1
 
 
 #filter orders by status 
-GET      http://localhost:3000/api/v1/users/orders/?pending=pending&ready=ready&complete=complete HTTP/1.1 
+GET      http://localhost:3000/api/v1/users/orders/?pending=pending&ready=ready&complete=complete&farmerId=5f0b7fc96d7acaf714688b2f HTTP/1.1 
 
 
 ###
@@ -134,17 +143,42 @@ Content-Type: application/json
 
 ###
 
-#get all products by  prod id (Retrieve a product)
+#get user
 
 GET   http://localhost:3000/api/v1/users/5f0b90022964d7fae42917e0 HTTP/1.1 
 
 ###
 
 ###
-
+#farmers reputatiion
 PATCH   http://localhost:3000/api/v1/users/5f0b7fc96d7acaf714688b2f/reputation/-1
 Content-Type: application/json
 
 
+
+###
+#super user get all users and accounts 
+###
+
+GET     http://localhost:3000/api/v1/users/admin
+
+
+
+###
+#super user patch  passwords
+###
+
+PATCH      http://localhost:3000/api/v1/users/5f1f51021fb358000b4d1679/admin
+Content-Type: application/json
+
+{
+    "password":"12345"
+}
+###
+###
+#super user get all transaction orders
+###
+
+GET       http://localhost:3000/api/v1/users/orders/transactions
 
 ###

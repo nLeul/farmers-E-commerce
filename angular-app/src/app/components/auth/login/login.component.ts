@@ -15,12 +15,11 @@ export class LoginComponent implements OnInit {
   user = null;
   constructor(private formBuilder: FormBuilder, private router: Router, private farmServ: FarmerApiService) {
 
-    console.log("constructor")
   }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', Validators.required,Validators.email],
       password: ['', Validators.required]
     });
 

@@ -1,0 +1,42 @@
+<h1> Transactions </h1>
+
+<div class="table-list">
+    <mat-table [dataSource]="transactions" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="customer_id">
+            <mat-header-cell *matHeaderCellDef> Customer ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.customer_id|slice:15:24}} </mat-cell>
+        </ng-container>
+        <!-- Position Column -->
+        <ng-container matColumnDef="_id">
+            <mat-header-cell *matHeaderCellDef> Order ID</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element._id|slice:15:24}} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="order_quantity">
+            <mat-header-cell *matHeaderCellDef> Order Quantity </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.order_quantity}} </mat-cell>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="order_total">
+            <mat-header-cell *matHeaderCellDef> Order Total </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.order_total}} </mat-cell>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="order_status">
+            <mat-header-cell *matHeaderCellDef> Order Status </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.order_status}} </mat-cell>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="order_date">
+            <mat-header-cell *matHeaderCellDef> Order Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.order_date|date}} </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

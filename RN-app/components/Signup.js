@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import {
     View,
     Text,
@@ -7,7 +9,8 @@ import {
     Image,
     TouchableOpacity,
     Platform,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -17,12 +20,44 @@ import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 
+const SignUp = () => {
+    const navigation = useNavigation();
+
+    const [state, setState] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        phone_number: 0,
+
+    });
+
+    const { firstname, lastname, email, password, phone_number } = state;
+
+    const goToSignup = async () => {
+        try {
+            const roleValue = { role: "customer" }
+            let signUpValue = {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                password: password,
+                phone_number: Number(phone_number),
+            }
+            const data = { ...roleValue, ...signUpValue }
+
+            let postedData = await axios.post(`https://farmers-shop-284315.uc.r.appspot.com/api/v1/users/signup`, data);
+            if (postedData.data.success) {
+                navigation.navigate('TABS');
+            }
+
+        } catch (error) {
+            Alert.alert("Error Occured")
+        }
 
 
 
-const SignUp = ({ navigation }) => {
-
-
+    };
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -32,6 +67,40 @@ const SignUp = ({ navigation }) => {
                 animation="fadeInUpBig"
                 style={styles.footer}
             >
+                <Text style={styles.text_footer}>First Name</Text>
+                <View style={styles.action}>
+                    <FontAwesome
+                        name="user-circle-o"
+                        color="#1c8adb"
+                        size={20}
+                    />
+                    <TextInput
+                        placeholder="Enter First Name"
+                        style={styles.textInput}
+                        value={state.firstname}
+                        onChangeText={firstname => setState({ ...state, firstname: firstname })}
+                    />
+                    <Animatable.View animation="bounceIn">
+                        <AntDesign name="checkcircle" size={20} color="#1c8adb" />
+                    </Animatable.View>
+                </View>
+                <Text style={styles.text_footer}>Last Name</Text>
+                <View style={styles.action}>
+                    <FontAwesome
+                        name="user-circle-o"
+                        color="#1c8adb"
+                        size={20}
+                    />
+                    <TextInput
+                        placeholder="Enter Last Name"
+                        style={styles.textInput}
+                        value={state.lastname}
+                        onChangeText={lastname => setState({ ...state, lastname: lastname })}
+                    />
+                    <Animatable.View animation="bounceIn">
+                        <AntDesign name="checkcircle" size={20} color="#1c8adb" />
+                    </Animatable.View>
+                </View>
                 <Text style={styles.text_footer}>Email</Text>
                 <View style={styles.action}>
                     <FontAwesome
@@ -42,7 +111,8 @@ const SignUp = ({ navigation }) => {
                     <TextInput
                         placeholder="Enter Email"
                         style={styles.textInput}
-                        autoCapitalize="none"
+                        value={state.email}
+                        onChangeText={email => setState({ ...state, email: email })}
                     />
                     <Animatable.View animation="bounceIn">
                         <AntDesign name="checkcircle" size={20} color="#1c8adb" />
@@ -58,7 +128,8 @@ const SignUp = ({ navigation }) => {
                     <TextInput
                         placeholder="Enter Phone Number"
                         style={styles.textInput}
-                        autoCapitalize="none"
+                        value={state.phone_number}
+                        onChangeText={phone_number => setState({ ...state, phone_number: phone_number })}
                     />
                     <Animatable.View animation="bounceIn">
                         <AntDesign name="checkcircle" size={20} color="#1c8adb" />
@@ -70,7 +141,8 @@ const SignUp = ({ navigation }) => {
                     <TextInput
                         placeholder="Enter Password"
                         style={styles.textInput}
-                        autoCapitalize="none"
+                        value={state.password}
+                        onChangeText={password => setState({ ...state, password: password })}
 
                     />
                     <TouchableOpacity >
@@ -79,24 +151,9 @@ const SignUp = ({ navigation }) => {
                         </Animatable.View>
                     </TouchableOpacity>
                 </View>
-                <Text style={[styles.text_footer, { marginTop: 35 }]}>Confirm Password</Text>
-                <View style={styles.action}>
-                    <FontAwesome name="lock" size={20} color="#1c8adb" />
-                    <TextInput
-                        placeholder="Confirm Password"
-                        style={styles.textInput}
-                        autoCapitalize="none"
-                    />
-                    <TouchableOpacity >
-                        <Animatable.View animation="bounceIn">
-                            <Entypo name="eye" size={20} color="#1c8adb" />
-                        </Animatable.View>
-                    </TouchableOpacity>
-                </View>
-
                 <View style={styles.button}>
                     <LinearGradient style={styles.signIn} colors={['#1c8adb', '#1c8adb']}>
-                        <Text style={styles.textSign}>Sign Up</Text>
+                        <Text onPress={goToSignup} style={styles.textSign}>Sign Up</Text>
                     </LinearGradient>
                 </View>
                 <View style={styles.button, { marginTop: 30 }}>

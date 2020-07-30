@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FarmerApiService } from '../services/farmer-api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,12 +12,16 @@ export class OrdersComponent implements OnInit {
   pending: [];;
   ready: [];
   complete: [];
+  farmerId: any;
   subscription$: Subscription;
   displayedColumns = ['customer_id', 'order_date', 'order_quantity', 'order_status', 'order_total', 'pickup_date', 'Action'];
 
 
   constructor(private farmService: FarmerApiService, private router: Router, private route: ActivatedRoute) {
-    this.subscription$ = this.farmService.getOrdersByStatus("pending", "ready", "complete").subscribe((order: any) => {
+    this.subscription$ = this.farmService.getLoggedInUser().subscribe(farmerRes => {
+      this.farmerId = farmerRes.user._id;
+     });
+    this.subscription$ = this.farmService.getOrdersByStatus("pending", "ready", "complete",this.farmerId).subscribe((order: any) => {
 
       this.pending = order.data.pending;
       this.ready = order.data.ready;
